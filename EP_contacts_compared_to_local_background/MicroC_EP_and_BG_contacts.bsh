@@ -1,0 +1,121 @@
+#!/bin/bash
+
+contacts=$1 # contact (pairs) file output from distiler filtered using: zcat perfix.pairs.gz | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs
+baits=$2 # bed1 - a bed file with all the regions you want to use as baits (the script will center the heatmap over the center of the regions)
+preys=$3 # bed2 file of regions of interest that you want to use as prey (the script will center the heatmap over the center of the regions)
+minDis=$4 # range start - the minimal distance between region centers to screen for ***minDis needs to be >= winSize + max(frarment sizes in the library)
+maxDis=$5 # range end - the maximal distance between region centers to screen for
+winSize=$6 # window half size of region to screen for contacts per region with other region in the list (integer)
+OutputDir=$7 # the directory in which work will be done and output will appear
+
+minBGdis=$((winSize*4)) #So, for a window of 5kb (2*2.5kb) the minimal distance from the center of the second anchor for BG calculation will be 10kb
+maxBGdis=$maxDis # The maximal distance from the center of the second anchor to calculate background. I made it equal to maxDis, so that the the anchor will always be included in the range of its own background. Notably, the anchor itself will be excluded (no intra anchor contacts) due to the limitations in the preys\baits_IN_contacts calculations
+
+#mkdir -p ${OutputDir}
+
+wait
+
+wait_a_second() {
+  joblist=($(jobs -p))
+    while (( ${#joblist[*]} >= 60 ))
+      do
+      sleep 1
+      joblist=($(jobs -p))
+  done
+}
+
+
+wait
+
+# Declare an array of chromosomes - could be change according to species
+declare -a chroms=("chr1" "chr2" "chr3" "chr4" "chr5" "chr6" "chr7" "chr8" "chr9" "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16" "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX" "chrY")
+
+wait
+
+mkdir ${OutputDir}/contacts_by_chrom
+
+
+cat $contacts | awk 'BEGIN{OFS="\t"} {print "chr"$1, $2, "chr"$3, $4, $5, $6, $7, $8, $9}' > ${OutputDir}/${conFile}_temp1 &
+
+for chr in ${chroms[@]}; do
+    cat ${OutputDir}/${conFile}_temp1 | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if (($1 == c) && (&3 == c)) {print $0}}' > ${OutputDir}/contacts_by_chrom/${chr}.contacts
+wait
+
+for chr in ${chroms[@]}; do
+    zcat $contacts | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if (($1 == c) && ($3 == c)) {print $0}}' > ${OutputDir}/contacts_by_chrom/${chr}.contacts
+done
+wait
+
+mkdir ${OutputDir}/baits_by_chrom
+
+wait
+
+# Iterate the chromosomes and make chrom-specific baits file
+for chr in ${chroms[@]}; do
+    cat $baits | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if ($1 == c) {print $1, $2, $3, $4, int(($2 + $3) / 2)}}' > ${OutputDir}/baits_by_chrom/${chr}_baits.bed &
+    wait_a_second
+done
+
+wait
+# Iterate the chromosomes and make chrom-specific preys file
+
+mkdir ${OutputDir}/preys_by_chrom
+ 
+# Iterate the chromosomes and make chrom-specific preys file
+for chr in ${chroms[@]}; do
+    cat $preys | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if ($1 == c) {print $1, $2, $3, $4, int(($2 + $3) / 2)}}' > ${OutputDir}/preys_by_chrom/${chr}_preys.bed &
+    wait_a_second
+done
+
+wait
+
+# for every bait, generate a sub-file of TREs with the bait and the prays around it, as defined by minDis and maxDis
+
+mkdir ${OutputDir}/preys_IN_baits_folder
+
+for chr in ${chroms[@]}; do
+    while read chrom start end strand center; do
+        cat ${OutputDir}/preys_by_chrom/${chr}_preys.bed | awk -v c=$center -v s=$minDis -v e=$maxDis 'BEGIN {OFS="\t"} ; {if (((c - e <= $5) && ($5 <= c - s)) || ((c + s <= $5) && ($5 <= c + e))) {print $0}}' > ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed &
+        wait_a_second
+    done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed
+done
+
+wait
+
+#generate a temp per-bait contact files directory with all contacts that has one side within the search window for each bait
+mkdir ${OutputDir}/baits_IN_contacts_folder
+
+for chr in ${chroms[@]}; do
+    while read chrom start end strand center; do
+        cat ${OutputDir}/contacts_by_chrom/${chr}.contacts | awk -v c=$center -v w=$winSize 'BEGIN{OFS="\t"} ; {if (((((c - w <= $2) && ($2 <= c + w))) || (((c - w <= $4) && ($4 <= c + w)))) && ((sqrt($4-$2)^2) > w*2)) {print $0}}' > ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed &
+        echo baits_IN_contacts $chrom $center
+        wait_a_second
+    done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed
+done
+
+wait
+#generate a temp per-prey contact files directory with all contacts that has one side within the search window for each prey
+mkdir ${OutputDir}/preys_IN_contacts_folder
+
+wait
+
+for chr in ${chroms[@]}; do
+    while read chrom start end strand center; do
+        cat ${OutputDir}/contacts_by_chrom/${chr}.contacts | awk -v c=$center -v s=$maxBGdis -v w=$winSize 'BEGIN{OFS="\t"} ; {if (((((c - w <= $2) && ($2 <= c + w))) || (((c - w <= $4) && ($4 <= c + w)))) && ((sqrt($4-$2)^2) > w*2)) {print $0}}' > ${OutputDir}/preys_IN_contacts_folder/${chr}_${center}.bed &
+        echo preys_IN_contacts $chrom $center
+        wait_a_second
+    done < ${OutputDir}/preys_by_chrom/${chr}_preys.bed
+done
+
+wait
+# Calculate bait-prey contacts and local background for each bait-prey pair
+# This loops will iterate over the chromosome list and will append each pair
+# to an existing results file
+for chr in ${chroms[@]}; do
+    while read chrom start end strand center; do
+        while read chromE startE endE strandE centerE; do
+            python single_pair_contacts_and_background_calculation.py $center $centerE ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed ${OutputDir}/preys_IN_contacts_folder/${chr}_${centerE}.bed $winSize $minBGdis $maxBGdis ${OutputDir}/EP_and_BG_contacts.txt
+        done < ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed
+        echo $chrom $center
+    done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed
+done

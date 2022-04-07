@@ -1,0 +1,116 @@
+echo Please put everything or soft link everything in the same folder
+
+peakFile=$1 # File of "bait" peaks to analyze (format: Chromosome <\t> bait-center-position)
+tssFile=$2 # File of "prey" TSSs to analyze (format: Chromosome <\t> prey-center-position)
+conFile=$3  # Contact file in juicer short format (given from merged_nodup.txt)
+outputFile=$4 # Path to output file
+DIST=$5 # Half size of "prey" search window around "bait" position
+CAP=$6 # Half size of "bait" and "prey" contact capture window
+
+echo "peakFile                  $peakFile"
+echo "tssFile                   $tssFile"
+echo "conFile                   $conFile"
+echo "outputFile                $outputFile"
+echo "locus half length         $DIST"
+echo "bait half length          $CAP"
+
+# generate temp file from peakFile to definde locus length, Start = center - DIST, end = center + DIST
+# input is chromosome locus_center
+# output is python_based_index chromosome start end center
+cat $peakFile | awk -v d=$DIST 'BEGIN{OFS="\t"} {if ($2 >= d) {print NR-1, $1, $2-d, $2+d, $2}; if ($2 < d) {print NR-1, $1, "0",$2+d, $2}}' > ${peakFile}_temp1 &
+
+# generate temp file from conFile
+# make sure pos1 <= pos2, switch them if otherwise
+# make sure the chromosome are in the same format as peakFile 
+zcat $conFile | awk 'BEGIN{OFS=" "} {if ($2<=$4 && $1==$3) {print $1, $2, $3, $4}; if ($2>$4 && $1==$4) {print $1, $4, $3, $2}}' \
+|awk 'BEGIN{OFS=" "} (substr($1,1,3)=="chr"){split($1,a,"chr"); split($3,b,"chr"); print a[2], $2, b[2], $4} (substr($1,1,3)!="chr") {print $0}' \
+|awk 'BEGIN{OFS=" "} {print $1, $2, $3, $4}' > ${conFile}_temp1 &
+
+wait
+# define maximum number of jobs allowed to run on the machine with this script, to avoid crashing
+wait_a_second() {
+  joblist=($(jobs -p))
+    while (( ${#joblist[*]} >= 60 ))
+      do
+      sleep 1
+      joblist=($(jobs -p))
+  done
+}
+
+
+#generate a temp per-locus contact files directory with all contacts that has one side within the search window for each locus
+mkdir ${conFile}_IN_${peakFile}_folder
+while read index chr start end center; do
+  echo $index $chr $start $end $center
+  nice cat ${conFile}_temp1 | nice -n 19 awk -v s=$start -v e=$end -v i=$index -v f=${conFile}_IN_${peakFile}_folder/temp_${index}.gz 'BEGIN{OFS="\t"} ((s<=$2 && $2<=e) || (s<=$4 && $4<=e)) {print i, $1, $2, $4 | "gzip > "f""}' &
+  wait_a_second
+done <${peakFile}_temp1
+
+wait
+# remove intermediate files
+#rm ${conFile}_temp1
+#rm ${peakFile}_temp1
+
+for f in ${conFile}_IN_${peakFile}_folder/* #*/
+	do nice gzip $f &
+done
+
+wait
+#declare list of chromosomes
+declare -a chroms=("chr1" "chr2" "chr3" "chr4" "chr5" "chr6" "chr7" "chr8" "chr9" "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16" "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX" "chrY")
+
+wait
+
+mkdir baits_by_chrom
+
+wait
+
+# Iterate the chromosomes and make chrom-specific baits file
+for chr in ${chroms[@]}; do
+    cat $peakFile | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if ($1 == c) {print $1, $2}}' > baits_by_chrom/${chr}_baits.bed &
+    wait_a_second
+done
+
+wait
+
+mkdir preys_by_chrom
+ 
+# Iterate the chromosomes and make chrom-specific preys file
+for chr in ${chroms[@]}; do
+    cat $tssFile | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if ($1 == c) {print $1, $2}}' > preys_by_chrom/${chr}_preys.bed &
+    wait_a_second
+done
+
+wait
+
+# for every bait, generate a sub-file of TREs with the bait and the prays around it, as defined by minDis and maxDis
+
+mkdir preys_IN_baits_folder
+
+for chr in ${chroms[@]}; do
+    while read chrom center; do
+        cat preys_by_chrom/${chr}_preys.bed | awk -v c=$center -v e=$DIST 'BEGIN{OFS="\t"} ; {if (((c - e <= $2) && ($2 <= c)) || ((c <= $2) && ($2 <= c + e))) {print $0}}' > preys_IN_baits_folder/${chr}_${center}.bed &
+        wait_a_second
+    done < baits_by_chrom/${chr}_baits.bed
+done
+
+wait
+
+ 
+echo "DIST...$DIST"
+echo "CAP....$CAP"
+echo "DRP....$DRP"
+
+mkdir result_fies
+#Call associated python script to run the contact caller per bait
+while read chrom center; do
+    python HiC_ContactCaller_microC_for_single_bait.py $peakFile preys_IN_baits_folder/${chrom}_${center}.bed $conFile result_fies/${chrom}_${center}.txt $DIST $CAP &
+    echo $chrom $center
+    wait_a_second
+done < $peakFile
+
+#wait
+
+# remove intermediate directory
+#rm ${conFile}_IN_${peakFile}_folder -r
+

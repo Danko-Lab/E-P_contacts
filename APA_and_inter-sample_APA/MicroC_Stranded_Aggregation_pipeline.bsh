@@ -11,7 +11,7 @@
 contacts=$1 # contact (pairs) file output from distiler filtered using: zcat perfix.pairs.gz | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs
 baits=$2 # bed1 - a bed file with all the regions you want to use as baits (the script will center the heatmap over the center of the regions)
 preys=$3 # bed2 file of regions of interest that you want to use as prey (the script will center the heatmap over the center of the regions)
-minDis=$4 # range start - the minimal distance between region centers to screen for ***minDis needs to be >= winSize + max(frarment sizes in the library)
+minDis=$4 # range start - the minimal distance between region centers to screen for ***minDis needs to be > 2*(winSize + max(frarment sizes in the library))
 maxDis=$5 # range end - the maximal distance between region centers to screen for
 winSize=$6 # window half size of region to screen for contacts per region with other region in the list (integer)
 pixNum=$7 # half the number of pixels to devide the window to (integer). The resulting pixels will represent a window-size/number-of-pixels bps

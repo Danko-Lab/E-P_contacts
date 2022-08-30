@@ -1,0 +1,44 @@
+#!/bin/bash
+
+###This pipeline is for calculating the total number of contacts associated with defined windows around baits and preys
+###in a given sample. It ia a crusial first step in calculating the expected change between samples given anchor-associated
+###global redistribution of contacts
+###It is should be ran seperetly for baits and preys, if these are two seperated sets of loci.
+
+treType=$1 #baits of prays
+winSize=$2 # window half size of region to screen for contacts per region with other region in the list (integer)
+pixNum=$3 # half the number of pixels to devide the window to (integer). The resulting pixels will represent a window-size/number-of-pixels bps
+OutputDir=$4 # the directory in which work will be done and output will appear
+
+wait_a_second() {
+  joblist=($(jobs -p))
+    while (( ${#joblist[*]} >= 60 ))
+      do
+      sleep 1
+      joblist=($(jobs -p))
+  done
+}
+
+wait
+#define the list of chromosomes:
+
+#human
+#declare -a chroms=("chr1" "chr2" "chr3" "chr4" "chr5" "chr6" "chr7" "chr8" "chr9" "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16" "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX" "chrY")
+
+#mouse
+declare -a chroms=("chr1" "chr2" "chr3" "chr4" "chr5" "chr6" "chr7" "chr8" "chr9" "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16" "chr17" "chr18" "chr19" "chrX" "chrY")
+
+wait
+
+mkdir -p ${OutputDir}/per_chromosome_global_contacts
+
+wait
+#Make a table of contacts mapped to windows around baits\prey per chromosome
+for chr in ${chroms[@]}; do
+    python get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_single_chromosome.py $chr ${OutputDir}/contacts_shifted_by_chrom/ ${OutputDir}/${treType}_by_chrom/ $treType $winSize $pixNum ${OutputDir}/per_chromosome_global_contacts/${chr}.csv &
+    wait_a_second
+done
+
+wait
+#Add the per-chromosome tables to get the genome-wide results
+python get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_combine_chromosomes.py $OutputDir

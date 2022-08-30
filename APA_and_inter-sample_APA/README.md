@@ -48,3 +48,6 @@ pixNum - same as pixNum in step 1
 
 OutputDir - same as OutputDir in step 1 (This is crucial for the code to run without errors!)
 
+The third step in calculating an inter-samples contact change APA is to calculate the expected APA matrix based on the above calculated 1D signal,
+devide the calculate a cell-by-cell (pixel-py-pixel) ratio between the observed and between the expected matrices of the two samples, and generate
+the observed/expected change APA matrix by cell-by-cell dividing the observed and expected change matrices. An example of how it was done for 

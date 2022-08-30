@@ -6,9 +6,9 @@ genomic distances around the prey. The results file will include the chromosome 
 values along with a Fisher's exact test p-value associated with observed contacts deviation from the expected value.
 
 Usage:
-''''
+'''
 bash HiContactCaller__microC_parallel.bsh bait_file prey_file contacts_file results_file DIST CAP
-''''
+'''
 Required files and arguments:
 bait_file - File of "bait" peaks to analyze (format: Chromosome <\t> bait-center-position)
 prey_file - File of "prey" TSSs to analyze (format: Chromosome <\t> prey-center-position)

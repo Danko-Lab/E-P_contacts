@@ -1,5 +1,5 @@
 # Note - This script also tests for a the significance of changes in observed
-# Vs. expected changes in contacts using Fisher's excact test
+# Vs. expected changes in contacts using Fisher's exact test
 
 import sys
 import pandas as pd

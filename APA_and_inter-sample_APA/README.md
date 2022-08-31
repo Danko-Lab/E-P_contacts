@@ -50,4 +50,9 @@ OutputDir - same as OutputDir in step 1 (This is crucial for the code to run wit
 
 The third step in calculating an inter-samples contact change APA is to calculate the expected APA matrix based on the above calculated 1D signal,
 devide the calculate a cell-by-cell (pixel-py-pixel) ratio between the observed and between the expected matrices of the two samples, and generate
-the observed/expected change APA matrix by cell-by-cell dividing the observed and expected change matrices. An example of how it was done for 
+the observed/expected change APA matrix by cell-by-cell dividing the observed and expected change matrices. An example of how it was done for the 
+comperison of the flavopiradol- or triptolide-treated mESCs to the DMSO control taken from Hsieh et al. 2020 (GSE130275) is provided in the python
+file named Change_calculation_and_visualization.py. this file includes an example for the APA obs/exp change matrices calculation based on the outputs
+of steps 1 and 2 above, as well as visualization of the APA matices as heatmaps, smoothing of these matrices and lotting a boxplot with the calculated
+values associated with the dot (center), the stripes stemming from the dot and the edges of the APA matrix. A clear description of every step is provided
+in the python file.

@@ -30,11 +30,14 @@ flv = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loop
 flv.columns = flv.columns.astype(int)
 
 # Load the tables of total contacts mapped to windows around baits and preys and devide by the number of baits\preys
-#baits
+#baits:
+#In this example, 10,599 baits were defined in the dataset
 norDMSO = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_bites_within_search_window_normalization_mESCs_DMSO.csv'), index_col = 0)/10599.0
 norTRP = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_bites_within_search_window_normalization_mESCs_TRP.csv'), index_col = 0)/10599.0
 norFLV = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_bites_within_search_window_normalization_mESCs_FLV.csv'), index_col = 0)/10599.0
-#preys
+#preys:
+#In this example, 45,677 preys were defined in the dataset
+
 norDMSOT = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_preys_within_search_window_normalization_mESCs_DMSO.csv'), index_col = 0)/45677.0
 norTRPT = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_preys_within_search_window_normalization_mESCs_TRP.csv'), index_col = 0)/45677.0
 norFLVT = pd.read_csv(os.path.join('C:\\Users','barsh','Desktop','Gilad','Focal_Loops','All_preys_within_search_window_normalization_mESCs_FLV.csv'), index_col = 0)/45677.0
@@ -91,7 +94,7 @@ while c < len(obsOVexppMatrixT.columns):
     c += 1
 obsOVexppMatrixTLR = pd.DataFrame(lowerRes, index = obsOVexppMatrixT.index[1::1]) 
 
-sns.heatmap(np.log2(obsOVexppMatrixTLR), cmap = "RdYlBu_r", square = True, vmin = -1,vmax = 1)#, center = 0, vmin = -0.25, vmax = 0.25)
+sns.heatmap(np.log2(obsOVexppMatrixTLR), cmap = "RdYlBu_r", square = True, vmin = -1,vmax = 1)
 plt.xticks([0,49.5, 99], ['-' + str(int(winSize / 1000)) + 'kb', 'TSN', str(int(winSize / 1000)) + 'kb'], size = 18, rotation = 0)
 plt.yticks([0,49.5, 99], [str(int(winSize / 1000)) + 'kb', 'TSN', '-' + str(int(winSize / 1000)) + 'kb'], size = 18)
 plt.show()
@@ -115,12 +118,15 @@ while c < len(obsOVexppMatrixF.columns):
     c += 1
 obsOVexppMatrixFLR = pd.DataFrame(lowerRes, index = obsOVexppMatrixF.index[1::1]) 
 
-sns.heatmap(np.log2(obsOVexppMatrixFLR), cmap = "RdYlBu_r", square = True, vmin = -1,vmax = 1)#, center = 0, vmin = -0.25, vmax = 0.25)
+sns.heatmap(np.log2(obsOVexppMatrixFLR), cmap = "RdYlBu_r", square = True, vmin = -1,vmax = 1)
 plt.xticks([0,49.5, 99], ['-' + str(int(winSize / 1000)) + 'kb', 'TSN', str(int(winSize / 1000)) + 'kb'], size = 18, rotation = 0)
 plt.yticks([0,49.5, 99], [str(int(winSize / 1000)) + 'kb', 'TSN', '-' + str(int(winSize / 1000)) + 'kb'], size = 18)
 plt.show()
 
 #Plotting box-plots for signal distribution in APA's dots, stripes and edges
+#dots are defined as a 2kbX2kb window at the center of the APA matrix.
+#stripe for each direction is defined as 4kbX8kb window, startin 2kb from the center of the APA matrix.
+#edges are all 4kbX4kb windows at the corners of the APA matrix.
 dot_vs_stipe_GB = pd.DataFrame(columns = ['mean_contacts', 'CID', 'CIU', 'W', 'P', 'treatments', 'Position'])
 matrixList = [obsOVexppMatrixF, obsOVexppMatrixT]
 treatmentList = ['FLV', 'TRP']
@@ -250,8 +256,6 @@ for i in range(len(matrixList)):
     
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    #plt.hlines(1, 0.5, 6.5, color = 'black', linestyle = 'dashed')
-    #plt.hlines(dot.stack().median(), 0.5, 6.5, color = 'black', linestyle = 'dashed')
 
     plt.ylim(0.2, 1.8)
     plt.yticks([0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8])

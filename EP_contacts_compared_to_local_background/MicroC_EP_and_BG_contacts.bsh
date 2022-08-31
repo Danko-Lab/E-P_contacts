@@ -7,11 +7,10 @@ minDis=$4 # range start - the minimal distance between region centers to screen 
 maxDis=$5 # range end - the maximal distance between region centers to screen for
 winSize=$6 # window half size of region to screen for contacts per region with other region in the list (integer)
 OutputDir=$7 # the directory in which work will be done and output will appear
+minBGdis=$8 # The minimal distance from the center of the second anchor to calculate background.
+maxBGdis=$9 # The maximal distance from the center of the second anchor to calculate background. We made it equal to maxDis, hence, the anchor will always be included in the range of its own background. Notably, the anchor itself will be excluded (no intra anchor contacts) due to the limitations in the preys\baits_IN_contacts calculations
 
-minBGdis=$((winSize*4)) #So, for a window of 5kb (2*2.5kb) the minimal distance from the center of the second anchor for BG calculation will be 10kb
-maxBGdis=$maxDis # The maximal distance from the center of the second anchor to calculate background. I made it equal to maxDis, so that the the anchor will always be included in the range of its own background. Notably, the anchor itself will be excluded (no intra anchor contacts) due to the limitations in the preys\baits_IN_contacts calculations
-
-#mkdir -p ${OutputDir}
+mkdir -p ${OutputDir}
 
 wait
 

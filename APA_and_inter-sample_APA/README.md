@@ -56,3 +56,21 @@ file named Change_calculation_and_visualization.py. this file includes an exampl
 of steps 1 and 2 above, as well as visualization of the APA matices as heatmaps, smoothing of these matrices and lotting a boxplot with the calculated
 values associated with the dot (center), the stripes stemming from the dot and the edges of the APA matrix. A clear description of every step is provided
 in the python file.
+
+
+Other requirements:
+
+* The python files MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py and MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py should be placed in the directory from which the bash script MicroC_Stranded_Aggregation_pipeline.bsh is being executed.
+
+* The python files get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_single_chromosome.py and get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_combine_chromosomes.py should be placed in the directory from which the bash script get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_single_chromosome.bsh is being executed.
+
+* Python>3
+
+* Python packages:
+  * sys
+  * pandas
+  * matplotlib
+  * os
+  * seaborn
+  * numpy
+  * scipy

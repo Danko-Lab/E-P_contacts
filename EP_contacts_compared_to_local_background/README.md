@@ -36,3 +36,17 @@ maxBGdis - The maximal distance from the center of the second anchor to calculat
 
 NOTE: We made maxBGdis equal to maxDis in our study. Hence, the anchor will always be included in the range of its own background. However, we exclude the anchor itself from the background contacts (no intra anchor contacts) by limitations defined at the preys\baits_IN_contacts calculations.
 
+Other requirements:
+
+* The python file single_pair_contacts_and_background_calculation.py should be placed in the directory from which the bash script is being executed.
+
+* Python>3
+
+* Python packages:
+  * sys
+  * pandas
+  * scipy
+  * os
+  * numpy
+  * seaborn
+  * matplotlib

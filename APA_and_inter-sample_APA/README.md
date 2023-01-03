@@ -4,11 +4,11 @@ of ratios representing observed over expected change in aggregated contacts betw
 
 We expected significant changes in chromatin after manipulating Pol II transcription. As such, not only are enhancer-promoter contacts expected to change, but the background contacts with at least one end originating at enhancer- and promoter- regions may be affected between conditions. As APAs are often used to characterize contacts, we devised an APA that normalizes enhancer-promoter contacts to all contacts associated with enhancers and promoters.
 
-Our strategy normalized contacts in the APA by changes in aggregated 1D signal mapped to the same windows used in the APA between conditions. We calculated the expected change in each pixel based on the ratio between the sample-specific sum of the 1D signal in each sample or treatment condition (Fig. 2A). We computed the changes in 1D signal in each pixel in the APA as:
+Our strategy normalized contacts in the APA by changes in aggregated 1D signal mapped to the same windows used in the APA between conditions. We calculated the expected change in each pixel based on the ratio between the sum of the 1D signal in each sample or treatment condition (Fig. 2A). We computed the enhancer-promoter contact in each  in each pixel relative to the TSS of enhancers and promoters as:
 
-$$obs = \sum_{k=1}^n E_{i,k} \in P_{j,k}$$
+$$obs_{i,j} = \sum_{k=1}^n E_{ep} \in M_{(k)i',j'}$$
 
-Where $n$ is the total number of enhancer-promoter pairs, $E_{i,k} \in P_{j,k}$ are the contacts that fall within pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) in pair $k$. 
+Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ($M$) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
 
 The expected contact values in each pixel, for each sample, were calculated as the expected read density based on 1D signal relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 

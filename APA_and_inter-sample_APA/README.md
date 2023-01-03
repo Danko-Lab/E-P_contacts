@@ -10,9 +10,9 @@ $$obs_{i,j} = \sum_{k=1}^{n_{ep}} M_{(k)i',j'}$$
 
 Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ( $M$ ) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
 
-The expected contact values in each pixel, for each sample, were calculated as the expected read density based on 1D signal relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
+The background expected signal in each pixel, for each sample, was calculated as the 1D signal density relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 
-$$exp = \left( \left( \sum_{k=1}^n_{ep} \right) / n_e \right) + \left( \left( \sum_{k=1}^{n_p} P_{j,k} \right) / n_p  \right)$$
+$$exp_{i,j} = \sum_{k=1}^n_{e}E_{(k)i'} / n_e + \sum_{k=1}^n_{p}P_{(k)i'} / n_p$$
 
 Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. Note that for the expected values calculation we have divided the sums over $E_i$ and $P_j$ by the total number of enhancers and promoters, respectively, to avoid a bias due to a higher number of enhancers in the data.
 

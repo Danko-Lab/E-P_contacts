@@ -8,7 +8,7 @@ Our strategy normalized contacts in the APA by changes in aggregated 1D signal m
 
 $$obs_{i,j} = \sum_{k=1}^n E_{ep} \in M_{(k)i',j'}$$
 
-Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ($M$) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
+Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ( $M$ ) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
 
 The expected contact values in each pixel, for each sample, were calculated as the expected read density based on 1D signal relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 

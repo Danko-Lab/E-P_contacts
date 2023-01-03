@@ -12,7 +12,7 @@ Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative t
 
 The expected contact values in each pixel, for each sample, were calculated as the expected read density based on 1D signal relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 
-$$exp = \left( \left( \sum_{k=1}^{n_e} E_{i,k} \right) / n_e \right) + \left( \left( \sum_{k=1}^{n_p} P_{j,k} \right) / n_p  \right)$$
+$$exp = \left( \left( \sum_{k=1}^n_{ep} \right) / n_e \right) + \left( \left( \sum_{k=1}^{n_p} P_{j,k} \right) / n_p  \right)$$
 
 Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. Note that for the expected values calculation we have divided the sums over $E_i$ and $P_j$ by the total number of enhancers and promoters, respectively, to avoid a bias due to a higher number of enhancers in the data.
 

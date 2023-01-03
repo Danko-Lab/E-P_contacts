@@ -12,7 +12,7 @@ Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative t
 
 The background expected signal in each pixel, for each sample, was calculated as the 1D signal density relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 
-$$exp_{i,j} = \sum_{k=1}^n_{e}E_{(k)i'} / n_e + \sum_{k=1}^n_{p}P_{(k)i'} / n_p$$
+$$exp_{i,j} = \sum_{k=1}^{n_{e}}E_{(k)i'} / n_e + \sum_{k=1}^{n_{p}}P_{(k)i'} / n_p$$
 
 Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. Note that for the expected values calculation we have divided the sums over $E_i$ and $P_j$ by the total number of enhancers and promoters, respectively, to avoid a bias due to a higher number of enhancers in the data.
 

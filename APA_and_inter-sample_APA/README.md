@@ -55,43 +55,15 @@ pixNu - half the number of pixels to devide the window to (integer). The resulti
 
 OutputDir - path to directory in which work will be done and output will appear
 
-The first step is to calculate the APA for each sample, using the contacts file output of distiller-nf. To focus on
-nucleosome contacts, thi code centers the reads in the contacts file by shifting them 75bp inward as such:
+Note: To focus on nucleosome contacts, the code centers the reads in the contacts file by shifting them 75bp inward as such:
 
  ![image](https://user-images.githubusercontent.com/47452349/187545681-095b5e4c-fc92-4491-9ec7-06a3790b757e.png)
 
-
-
-The second step is also executed by a bash script and calculates the the aggregated 1D contact signal associated with each anchor set.
-This step will need to be done for each of the anchor sets seperatly, using the following command:
-
-    bash get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis.bsh anchor_type winSize pixNum OutputDir
-    
-Required files and arguments:
-
-anchor_type - "baits" of "prays" (str)
-
-winSize - same as winSize in step 1
-
-pixNum - same as pixNum in step 1
-
-OutputDir - same as OutputDir in step 1 (This is crucial for the code to run without errors!)
-
-The third step in calculating an inter-samples contact change APA is to calculate the expected APA matrix based on the above calculated 1D signal,
-devide the calculate a cell-by-cell (pixel-py-pixel) ratio between the observed and between the expected matrices of the two samples, and generate
-the observed/expected change APA matrix by cell-by-cell dividing the observed and expected change matrices. An example of how it was done for the 
-comperison of the flavopiradol- or triptolide-treated mESCs to the DMSO control taken from Hsieh et al. 2020 (GSE130275) is provided in the python
-file named Change_calculation_and_visualization.py. this file includes an example for the APA obs/exp change matrices calculation based on the outputs
-of steps 1 and 2 above, as well as visualization of the APA matices as heatmaps, smoothing of these matrices and lotting a boxplot with the calculated
-values associated with the dot (center), the stripes stemming from the dot and the edges of the APA matrix. A clear description of every step is provided
-in the python file.
-
+Finally, the python script Change_calculation_and_visualization.py takes the raw APA matrices and 1D signal vectors around baits and preys from a treatment and control datasets, as well as numerical parameters for the 1D size of the APA matrix and the number of cells (or pixels) in each row and column and outpudts the matrix of 1D signal normalized change APA for contacts between the baits and preys.    
 
 Other requirements:
 
-* The python files MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py and MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py should be placed in the directory from which the bash script MicroC_Stranded_Aggregation_pipeline.bsh is being executed.
-
-* The python files get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_single_chromosome.py and get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_combine_chromosomes.py should be placed in the directory from which the bash script get_genome_wide_normalization_scores_for_inter-sample_pileup_analysis_single_chromosome.bsh is being executed.
+* The python files MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py, MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py and get_genome_wide_normalization_scores_by_search_window should be placed in the directory from which the bash script MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh is being executed.
 
 * Python>3
 

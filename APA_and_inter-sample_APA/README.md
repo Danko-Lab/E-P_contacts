@@ -61,6 +61,34 @@ Note: To focus on nucleosome contacts, the code centers the reads in the contact
 
 Finally, the python script Change_calculation_and_visualization.py takes the raw APA matrices and 1D signal vectors around baits and preys from a treatment and control datasets, as well as numerical parameters for the 1D size of the APA matrix and the number of cells (or pixels) in each row and column and outpudts the matrix of 1D signal normalized change APA for contacts between the baits and preys.    
 
+It should be ran as following:
+
+    python Change_calculation_and_visualization.py control_raw_APA treatment_raw_APA control_baits_1D_signal control_preys_1D_signal treatment_baits_1D_signal treatment_preys_1D_signal winSize pixNum number_of_baits number_of_preys path_to_APA_image_file
+
+Required files and arguments:
+
+control_raw_APA - the control APA matrix (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+treatment_raw_APA - the control APA matrix (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+control_baits_1D_signal - the control 1D signal vector around baits (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+control_preys_1D_signal - the control 1D signal vector around preys (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+treatment_baits_1D_signal - the treatment 1D signal vector around baits (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+treatment_preys_1D_signal - the treatment 1D signal vector around preys (a csv file output of MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh)
+
+winSize - window half size of region to screen for contacts per region with other region in the list (integer). This will be half the APA 1D size.
+
+pixNu - half the number of pixels to devide the window to (integer). The resulting pixels will represent winSize/pixNum bps
+
+number_of_baits - an integer representing the number of baits in the data
+
+number_of_preys - an integer representing the number of preys in the data
+
+path_to_APA_image_file
+
 Other requirements:
 
 * The python files MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py, MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py and get_genome_wide_normalization_scores_by_search_window should be placed in the directory from which the bash script MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh is being executed.

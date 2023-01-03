@@ -14,16 +14,17 @@ The background expected signal in each pixel, for each sample, was calculated as
 
 $$exp_{i,j} = \sum_{k=1}^{n_{e}}E_{(k)i'} / n_e + \sum_{k=1}^{n_{p}}P_{(k)j'} / n_p$$
 
-Where $n_e$ is the total number of enhancers in the data and $n_p} is the total number of promoters in the data. The 1D signal density at position $i$ relative to the promoter and $j$ relative to the enhancer ( $E(k)i'$ ) and each  promoter ( $P(k)j'$ ) was read and summed across all enhancers and promoters. The minimal distance of contacts considered at the 1D signal calculations was the same as in the enhancer-promoter contacts calculation, to avoid noise stemming from random ligation events for loci at very close linear proximity. Note that we have divided the sums over position $i$ relative to the promoter and $j$ relative to the enhancer by $n_e$ and $n_p$, respectively to avoid a bias due to a higher number of enhancers in the data. 
+Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. The 1D signal density at position $i$ relative to the promoter and $j$ relative to the enhancer ( $E(k)i'$ ) and each  promoter ( $P(k)j'$ ) was read and summed across all enhancers and promoters. The minimal distance of contacts considered at the 1D signal calculations was the same as in the enhancer-promoter contacts calculation, to avoid noise stemming from random ligation events for loci at very close linear proximity. Note that we have divided the sums over position $i$ relative to the promoter and $j$ relative to the enhancer by $n_e$ and $n_p$, respectively to avoid a bias due to a higher number of enhancers in the data. 
 
 
-We then, for each pixel, calculated a ratio of ratios, with the numerator ratio representing the observed change and the denominator representing the expected change in contacts for that pixel. So, to account for the obs/exp changes in samples A relative to sample B, we used the following formula:
+To compare the 1D normalized changes in contacts between treatment conditions, we calculated a ratio of ratios, with the numerator ratio representing the observed change and the denominator representing the expected change in contacts for that pixel. So, to account for the obs/exp changes in samples A relative to sample B, we used the following formula:
 
 $$obs / exp = \frac{obsA / obsB}{expA / expB}$$
 
 For all other, intra-sample APAs we used the aggregated raw counts, as described for the observed values calculation above. 
 
-To avoid overlapping windows around enhancers and promoters, we excluded enhancer-promoter pairs for which the distance between them was smaller than the total 1D size of the APA plus the maximal fragment size in the library, which is known for Micro-C libraries due to the agarose gel purification step. For example, for a 20kb x 20kb APA, the minimum enhancer-promoter distance should be larger than ~20.3 kp. For APAs calculated at windows of 20kb around the anchors, we considered all possible anchor pairs within a genomic distance of 25-150kb. For higher resolution APAs with 2kb window around enhancer and promoter TSSs (Fig. 1D and Fig. S3), we considered all possible enhancer-promoter pairs within a genomic distance of 5-100kb.
+To avoid overlapping windows around enhancers and promoters, we excluded enhancer-promoter pairs for which the separating genomic distance was smaller than the total 1D size of the APA plus the maximal fragment size in the library, which is known for Micro-C libraries due to the agarose gel purification step. For example, for a 20kb x 20kb APA, the minimum enhancer-promoter distance should be larger than ~20.3 kp. For APAs calculated at windows of 20kb around the anchors, we considered all possible anchor pairs within a genomic distance of 25-150kb. For higher resolution APAs with 2kb window around enhancer and promoter TSSs (Fig. 1D and Fig. S3), we considered all possible enhancer-promoter pairs within a genomic distance of 5-100kb.
+
 
 
 Usage:

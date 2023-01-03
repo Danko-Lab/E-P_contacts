@@ -1,9 +1,4 @@
 ### This is a script for visualizing the inter-sample comperison of APAs
-### This example was used to compare FLV- and treatment-treate mESC samples 
-### to control-treated control. Data was taken from Hsieh et al. 2020 (GSE130275)
-### control - GSM3735106
-### treatment -  GSM4173519, GSM4173520
-### FLV - GSM4173521, GSM4173522
 
 import pandas as pd
 import os

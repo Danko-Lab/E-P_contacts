@@ -12,9 +12,10 @@ Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative t
 
 The background expected signal in each pixel, for each sample, was calculated as the 1D signal density relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
 
-$$exp_{i,j} = \sum_{k=1}^{n_{e}}E_{(k)i'} / n_e + \sum_{k=1}^{n_{p}}P_{(k)i'} / n_p$$
+$$exp_{i,j} = \sum_{k=1}^{n_{e}}E_{(k)i'} / n_e + \sum_{k=1}^{n_{p}}P_{(k)j'} / n_p$$
 
-Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. Note that for the expected values calculation we have divided the sums over $E_i$ and $P_j$ by the total number of enhancers and promoters, respectively, to avoid a bias due to a higher number of enhancers in the data.
+Where $n_e$ is the total number of enhancers in the data and $n_p} is the total number of promoters in the data. The 1D signal density at position $i$ relative to the promoter and $j$ relative to the enhancer ( $E(k)i'$ ) and each  promoter ( $P(k)j'$ ) was read and summed across all enhancers and promoters. The minimal distance of contacts considered at the 1D signal calculations was the same as in the enhancer-promoter contacts calculation, to avoid noise stemming from random ligation events for loci at very close linear proximity. Note that we have divided the sums over position $i$ relative to the promoter and $j$ relative to the enhancer by $n_e$ and $n_p$, respectively to avoid a bias due to a higher number of enhancers in the data. 
+
 
 We then, for each pixel, calculated a ratio of ratios, with the numerator ratio representing the observed change and the denominator representing the expected change in contacts for that pixel. So, to account for the obs/exp changes in samples A relative to sample B, we used the following formula:
 

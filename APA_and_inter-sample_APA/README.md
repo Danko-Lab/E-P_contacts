@@ -6,7 +6,7 @@ We expected significant changes in chromatin after manipulating Pol II transcrip
 
 Our strategy normalized contacts in the APA by changes in aggregated 1D signal mapped to the same windows used in the APA between conditions. We calculated the expected change in each pixel based on the ratio between the sum of the 1D signal in each sample or treatment condition (Fig. 2A). We computed the enhancer-promoter contact in each  in each pixel relative to the TSS of enhancers and promoters as:
 
-$$obs_{i,j} = \sum_{k=1}^n E_{ep} \in M_{(k)i',j'}$$
+$$obs_{i,j} = \sum_{k=1}^n_{ep} M_{(k)i',j'}$$
 
 Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ( $M$ ) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
 

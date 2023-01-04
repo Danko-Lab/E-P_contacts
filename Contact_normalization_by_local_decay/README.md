@@ -7,7 +7,7 @@ values along with a Fisher's exact test p-value associated with observed contact
 
 Usage:
 
-    bash HiContactCaller__microC_parallel.bsh bait_file prey_file contacts_file results_file DIST CAP
+    bash ContactCaller_microC.bsh bait_file prey_file contacts_file results_directory CPU DIST CAP
 
 Required files and arguments:
 
@@ -20,9 +20,11 @@ contacts_file - contact (pairs) file output from distiler-nf filtered using:
     zcat perfix.pairs.gz | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs
 results_file - Path to output file
 
-DIST - Half size of "prey" search window around "bait" position
+CPU - [optional, default=30] indicating how many CPU cores can be used.
 
-CAP - Half size of "bait" and "prey" contact capture window
+DIST - [optional, default=1000000] Half size of "prey" search window around "bait" position
+
+CAP - [optional, default=2000] Half size of "bait" and "prey" contact capture window
 
 Other requirements:
 

@@ -25,7 +25,7 @@ In all of the provided code, the source for Micro-C contact information is from 
 
     zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs```
 
-For the purpes of these demos, please make sure you have `cd` into the E-P_contacts repository and run the follwing to download the relevant processed pairs files:
+For the purpose of these demos, please make sure you have `cd` into the E-P_contacts repository and run the following to download the relevant processed pairs files:
 
     wget "ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/*"
     wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE206nnn/GSE206131/suppl/GSE206131_K562_cis_mapq30_pairs.txt.gz

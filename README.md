@@ -3,7 +3,7 @@ This repository includes the main pieces of code used to support the conclusion 
 
 Before we start the demo, please colne this repository and `cd` into it.
 
-Dependencies:
+### Dependencies:
 
 - Python > 3
 - Python packages:

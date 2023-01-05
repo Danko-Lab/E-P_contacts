@@ -12,6 +12,10 @@ Dependencies:
   * numpy
   * statsmodels
   * gzip
+  * matplotlib
+  * os
+  * seaborn
+  * scipy
 - R packages:
   * rpy2
 

@@ -3,7 +3,18 @@ This repository includes the main pieces of code used to support the conclusion 
 
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from prosseced pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. A simple way of obtaining these files is to run distiller-nf with: `parsing_options: '--add-columns mapq' drop_readid: True`. You can find examples of raw Micro-C data processing in the "Micro-C_basic_processing" directory that containes YML configuration files used for distiller-nf. After obtaining pairs file for each replicate in your data, run:
+
 `zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs`
 
 ### Contact_normalization_by_local_decay
+We used this code to compare lacal background signal normalized contact frequency between functional and nonfunctional pairs of enhancers and promoters. The normalization to the local pattern of the distance decay provides a way of seperating the effect of contact frequency from that of genomic distance - two features that often highly correlate. To obtain observed and expected contacts between 4kb windows around enhancers and promoters that were tested by CRISPRi and are up to 1Mb from each other in K562 cells, run:
+
+`bash ContactCaller_microC.bsh Gasperini_dREG_based_TRE_baits_hg38.txt Gasperini_dREG_based_promoter_preys_hg38.txt K562_microC.hg38.nodups_30_intra.sorted.pairs.gz outputPath 30 1000000 2000`
+
+Note: outputPath refers to the directory where work will be done. The acompaning python file, ContactCaller_microC.py, should be at the same directory as ContactCaller_microC.bsh. The above command will use 30 CPU cores.
+
+After getting the observed and expected contacts for each enhancer-promoter pair, we defined "functional", "nonfunctional" and "other" pairs, based on CRISPRi data. Ths can be done by:
+
+`python Pair_type_assignment.py ContactCaller_microC_output.txt Gasperini_dREG_based_functional.csv Gasperini_dREG_based_nonfunctional.csv ContactCaller_microC_output_W_functional_nonfunctional_and_oter_pair_assignments.txt` 
+
 

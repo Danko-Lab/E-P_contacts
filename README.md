@@ -15,6 +15,10 @@ Note: outputPath refers to the directory where work will be done. The acompaning
 
 After getting the observed and expected contacts for each enhancer-promoter pair, we defined "functional", "nonfunctional" and "other" pairs, based on CRISPRi data. Ths can be done by:
 
-`python Pair_type_assignment.py ContactCaller_microC_output.txt Gasperini_dREG_based_functional.csv Gasperini_dREG_based_nonfunctional.csv ContactCaller_microC_output_W_functional_nonfunctional_and_oter_pair_assignments.txt` 
+`python Pair_type_assignment.py ContactCaller_microC_output.txt Gasperini_dREG_based_functional.csv Gasperini_dREG_based_nonfunctional.csv ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt` 
 
+To then visualize the distribution of lacal decay-normalized contacts by pair type, while limiting for a minimum of 1 contact per pair and a minimum distance of 15kb, run:
 
+`python Plotting_obs_over_exp_distribution_by_pair_type.py ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 Viollinplot_for_normalized_contacts_by_pair_type.svg`
+
+###

@@ -47,13 +47,13 @@ This is a complementarry method to the APA, in which rather than examining the a
 
 To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the contacts between 5kb windows around enhancers and promoters within 25-150kb of genomic distance and background regions being 10-150kb away from enhancers and promoters TSS, at the DMSO control, run:
 
-    bash MicroC_EP_and_BG_contacts mESCs_DMSO_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
     
 And for flavopiridol (FLV) treated cells: 
 
-    bash MicroC_EP_and_BG_contacts mESCs_FLV_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
 
 And for Triptolide (TRP) treated cells: 
 
-    bash MicroC_EP_and_BG_contacts mESCs_TRP_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
 

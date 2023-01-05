@@ -19,6 +19,7 @@ After getting the observed and expected contacts for each enhancer-promoter pair
 
 To then visualize the distribution of lacal decay-normalized contacts by pair type, while limiting for a minimum of 1 contact per pair and a minimum distance of 15kb, run:
 
-`python Plotting_obs_over_exp_distribution_by_pair_type.py ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 Viollinplot_for_normalized_contacts_by_pair_type.svg`
+`python Plotting_obs_over_exp_distribution_by_pair_type.py ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 Violinplot_for_normalized_contacts_by_pair_type.svg`
 
-###
+###APA_and_inter-sample_APA
+

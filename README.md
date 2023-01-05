@@ -21,7 +21,7 @@ To then visualize the distribution of lacal decay-normalized contacts by pair ty
 
     python Plotting_obs_over_exp_distribution_by_pair_type.py ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 Violinplot_for_normalized_contacts_by_pair_type.svg
 
-###APA_and_inter-sample_APA
+### APA_and_inter-sample_APA
 This is an alternative approach to conduct an aggregated peak analysis (APA). It can be used both to plot the aggregated raw contacts between anchors in the data and to compare between the aggregated contacts in different samples (like control and treatment), while normalizing for changes in anchor-associated contacts (1D signal). Please refer to the README at the APA_and_inter-sample_APA or the methods section in the paper for a detailed explanation of why this is important in the case of transcriptional inhibitors and for a mathematical representation of the calculation included.
 
 To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the raw aggregated contacts 20kbX20kb matrix at 200bp resolution between enhancers and promoters within 25-150kb of genomic distance, as well as the vectors for the 1D signal around these enhancers and promoters at the DMSO control, use:
@@ -41,3 +41,19 @@ Note: outputPath refers to the directory where work will be done. The acompaning
 After running MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh for all treatment and control samples, you can visualize the change APAs for 10530 (promoters) baits and 27900 (enhancers) preys as follows:
 
     python Change_calculation_and_visualization.py Control_observed_contacts_APA_matrix.csv Treatment_observed_contacts_APA_matrix.csv Control_baits_1D_signal_vector Control_preys_1D_signal_vectorTreatment_baits_1D_signal_vector Treatment_preys_1D_signal_vector 10000 50 10530 27900 1D_normalized_change_APA.svg 
+
+### EP_contacts_compared_to_local_background
+This is a complementarry method to the APA, in which rather than examining the aggregated contacts, we are looking at the distribution of contacts across all pairs of enhancers and promoter (or other sets of enchors) within a defined range of genomic distances, while normalizing for the contacts obtained between the enhancer and the promoter nearby regions and vise-versa. The benifit of this approach is that it is, on one hand captures the entire distribution of changes between control and treatment conditions, while on the other hand, less affected by outliers. It also allows us to perform ststistical tests to ask if the global trend obtained under different treatment is statistically significant.
+
+To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the contacts between 5kb windows around enhancers and promoters within 25-150kb of genomic distance and background regions being 10-150kb away from enhancers and promoters TSS, at the DMSO control, run:
+
+    bash MicroC_EP_and_BG_contacts mESCs_DMSO_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    
+And for flavopiridol (FLV) treated cells: 
+
+    bash MicroC_EP_and_BG_contacts mESCs_FLV_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+
+And for Triptolide (TRP) treated cells: 
+
+    bash MicroC_EP_and_BG_contacts mESCs_TRP_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+

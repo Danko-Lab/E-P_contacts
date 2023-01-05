@@ -22,4 +22,22 @@ To then visualize the distribution of lacal decay-normalized contacts by pair ty
 `python Plotting_obs_over_exp_distribution_by_pair_type.py ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 Violinplot_for_normalized_contacts_by_pair_type.svg`
 
 ###APA_and_inter-sample_APA
-This is an alternative approach to conduct an aggregated peak analysis (APA). It can be used both to plot the aggregated raw contacts between anchors in the data and to compare between the aggregated contacts in different samples (like control and treatment), while normalizing for changes in anchor-associated contacts (1D signal). Please refer to the specific 
+This is an alternative approach to conduct an aggregated peak analysis (APA). It can be used both to plot the aggregated raw contacts between anchors in the data and to compare between the aggregated contacts in different samples (like control and treatment), while normalizing for changes in anchor-associated contacts (1D signal). Please refer to the README at the APA_and_inter-sample_APA or the methods section in the paper for a detailed explanation of why this is important in the case of transcriptional inhibitors and for a mathematical representation of the calculation included.
+
+To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the raw aggregated contacts 20kbX20kb matrix at 200bp resolution between enhancers and promoters within 25-150kb of genomic distance, as well as the vectors for the 1D signal around these enhancers and promoters at the DMSO control, use:
+
+`bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath`
+
+And for flavopiridol (FLV) treated cells: 
+
+`bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath`
+
+And for Triptolide (TRP) treated cells: 
+
+`bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath`
+
+Note: outputPath refers to the directory where work will be done. The acompaning python files, MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py, MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py and get_genome_wide_normalization_scores_by_search_window.py should be at the same directory as ContactCaller_microC.bsh.
+
+After running MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh for all treatment and control samples, you can visualize the change APAs for 10530 (promoters) baits and 27900 (enhancers) preys as follows:
+
+`python Change_calculation_and_visualization.py Control_observed_contacts_APA_matrix.csv Treatment_observed_contacts_APA_matrix.csv Control_baits_1D_signal_vector Control_preys_1D_signal_vectorTreatment_baits_1D_signal_vector Treatment_preys_1D_signal_vector 10000 50 10530 27900 1D_normalized_change_APA.svg` 

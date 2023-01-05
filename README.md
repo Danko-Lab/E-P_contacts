@@ -16,6 +16,7 @@ Dependencies:
   * os
   * seaborn
   * scipy
+  * matplotlib
 - R packages:
   * rpy2
 

@@ -1,7 +1,7 @@
 # Code for Barshad et al. 2023
 This repository includes the main pieces of code used to support the conclusion in the paper. We also provide input files used in the paper when possible and explain how to obtain the ones that were too big to be provided here. The three main types of analyses are: Contact_normalization_by_local_decay, APA_and_inter-sample_APA and EP_contacts_compared_to_local_background. In each of the above repositories you can find a detailed explanation about the different scripts, what they do and requred\optional parameters and input files. Here, we provide examples for code execution with data analysed in this paper.   
 
-Before we start the demo, please colne this repository and `cd` into it.
+Before we start the demo, please clone this repository and `cd` into it.
 
 ### Dependencies:
 

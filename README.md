@@ -3,6 +3,18 @@ This repository includes the main pieces of code used to support the conclusion 
 
 Before we start the demo, please colne this repository and `cd` into it.
 
+Dependencies:
+
+Python>3
+Python packages:
+sys
+pandas
+numpy
+statsmodels
+gzip
+R packages:
+rpy2
+
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from prosseced pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. A simple way of obtaining these files is to run distiller-nf with: `parsing_options: '--add-columns mapq' drop_readid: True`. You can find examples of raw Micro-C data processing in the "Micro-C_basic_processing" directory that containes YML configuration files used for distiller-nf. After obtaining pairs file for each replicate in your data, run:
 

@@ -47,20 +47,20 @@ This is a complementarry method to the APA, in which rather than examining the a
 
 To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the contacts between 5kb windows around enhancers and promoters within 25-150kb of genomic distance and background regions being 10-150kb away from enhancers and promoters TSS, at the DMSO control, run:
 
-    bash MicroC_EP_and_BG_contacts.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/DMSO/
     
 And for flavopiridol (FLV) treated cells: 
 
-    bash MicroC_EP_and_BG_contacts.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/FLV/
 
 And for Triptolide (TRP) treated cells: 
 
-    bash MicroC_EP_and_BG_contacts.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 outputPath
+    bash MicroC_EP_and_BG_contacts.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/TRP/
 
 Note: outputPath refers to the directory where work will be done. The acompaning python file, single_pair_contacts_and_background_calculation.py should be at the same directory as MicroC_EP_and_BG_contacts.bsh.
 
 After running MicroC_EP_and_BG_contacts.bsh for all three treatmen and control conditions, you can run the following to obtain scatterplots comparing the EP ovver background ratios across all EP pairs, between the different treatment conditions:
 
-    python Compering_EP_contacts_between_treatments.py MicroC_EP_and_BG_contacts_for_DMSO.txt MicroC_EP_and_BG_contacts_for_FLV.txt MicroC_EP_and_BG_contacts_for_FLV.txt 53226768 362862200 410040533 8 FLV_vs_DMSO.svg TRP_vs_DMSO.svg FLV_vs_TRP.svg
+    python Compering_EP_contacts_between_treatments.py ./EP_contacts_compared_to_local_background/DMSO/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/FLV/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/TRP/EP_and_BG_contacts.txt 53226768 362862200 410040533 8 ./EP_contacts_compared_to_local_background/FLV_vs_DMSO.svg ./EP_contacts_compared_to_local_background/TRP_vs_DMSO.svg ./EP_contacts_compared_to_local_background/FLV_vs_TRP.svg
 
 Note: The integers above represent (from left to righr) the sequencing depth of DMSO, FLV and TRP treated mESCs Micro-C for cis interactions with mapq>30 and the minimum threshold for contacts per billion (CPB) for EP contact, to include in the analysis.

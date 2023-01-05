@@ -8,7 +8,8 @@ In all of the provided code, the source for Micro-C contact information is from 
 
     zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs```
 
-For the purpes of these demos, please run the follwing to download the relevant processed pairs files:
+For the purpes of these demos, please make sure you have `cd` into the E-P_contacts repository and run the follwing to download the relevant processed pairs files:
+
     wget "ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/*"
     wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE206nnn/GSE206131/suppl/GSE206131_K562_cis_mapq30_pairs.txt.gz
 
@@ -25,7 +26,7 @@ After ContactCaller_microC.bsh finish running, run the following to concatenate 
 
 After getting the observed and expected contacts for each enhancer-promoter pair, we defined "functional", "nonfunctional" and "other" pairs, based on CRISPRi data. Ths can be done by:
 
-    python Pair_type_assignment.py ./Contact_normalization_by_local_decay/ContactCaller_microC_output.txt ./Input_files/Gasperini_dREG_based_functional.csv ./Input_files/Gasperini_dREG_based_nonfunctional.csv ./Contact_normalization_by_local_decay/ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 
+    python ./Contact_normalization_by_local_decay/Pair_type_assignment.py ./Contact_normalization_by_local_decay/ContactCaller_microC_output.txt ./Input_files/Gasperini_dREG_based_functional.csv ./Input_files/Gasperini_dREG_based_nonfunctional.csv ./Contact_normalization_by_local_decay/ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 
 
 To then visualize the distribution of lacal decay-normalized contacts by pair type, while limiting for a minimum of 1 contact per pair and a minimum distance of 15kb, run:
 
@@ -36,17 +37,15 @@ This is an alternative approach to conduct an aggregated peak analysis (APA). It
 
 To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and prey files which can be found at the input files directory in this GitHub repository. To obtain the raw aggregated contacts 20kbX20kb matrix at 200bp resolution between enhancers and promoters within 25-150kb of genomic distance, as well as the vectors for the 1D signal around these enhancers and promoters at the DMSO control, use:
 
-    bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath
+    bash ./APA_and_inter-sample_APA/MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 ./APA_and_inter-sample_APA/DMSO
 
 And for flavopiridol (FLV) treated cells: 
 
-    bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath
+    bash ./APA_and_inter-sample_APA/MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 ./APA_and_inter-sample_APA/FLV
 
 And for Triptolide (TRP) treated cells: 
 
-    bash MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 outputPath
-
-Note: outputPath refers to the directory where work will be done. The acompaning python files, MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py, MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py and get_genome_wide_normalization_scores_by_search_window.py should be at the same directory as MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh.
+    bash ./APA_and_inter-sample_APA/MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 50 ./APA_and_inter-sample_APA/TRP
 
 After running MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh for all treatment and control samples, you can visualize the change APAs for 10530 (promoters) baits and 27900 (enhancers) preys as follows:
 
@@ -70,6 +69,8 @@ And for Triptolide (TRP) treated cells:
 Note: outputPath refers to the directory where work will be done. The acompaning python file, single_pair_contacts_and_background_calculation.py should be at the same directory as MicroC_EP_and_BG_contacts.bsh.
 
 After running MicroC_EP_and_BG_contacts.bsh for all three treatmen and control conditions, you can run the following to obtain scatterplots comparing the EP ovver background ratios across all EP pairs, between the different treatment conditions:
+
+For flavopiridol (FLV) treated cells over DMSO control: 
 
     python Compering_EP_contacts_between_treatments.py ./EP_contacts_compared_to_local_background/DMSO/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/FLV/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/TRP/EP_and_BG_contacts.txt 53226768 362862200 410040533 8 ./EP_contacts_compared_to_local_background/FLV_vs_DMSO.svg ./EP_contacts_compared_to_local_background/TRP_vs_DMSO.svg ./EP_contacts_compared_to_local_background/FLV_vs_TRP.svg
 

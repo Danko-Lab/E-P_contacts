@@ -84,15 +84,15 @@ This is a complementary method to the APA, in which rather than examining the ag
 
 To run this code, you will need the pairs file for FLV, TRP or DMSO (control) treated mESCs from Hsieh et al., 2020 Mol. cell paper. We deposited a processed version of these pairs files in ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. You will also need the baits and preys files which can be found at the input files directory in this GitHub repository. To obtain the contacts between 5kb windows around enhancers and promoters within 25-150kb of genomic distance and background regions being 10-150kb away from enhancers and promoters TSS, at the DMSO control, run:
 
-    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/DMSO/
+    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_DMSO_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 2500 ./EP_contacts_compared_to_local_background/DMSO/ 10000 150000
     
 And for flavopiridol (FLV) treated cells: 
 
-    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/FLV/
+    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_FLV_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 2500 ./EP_contacts_compared_to_local_background/FLV/ 10000 150000
 
 And for triptolide (TRP) treated cells: 
 
-    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 10000 150000 ./EP_contacts_compared_to_local_background/TRP/
+    bash ./EP_contacts_compared_to_local_background/MicroC_EP_and_BG_contacts.bsh mESCs_TRP_30_intra.mm10.nodups.pairs.gz ./Input_files/dREG_based_promoters_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed ./Input_files/dREG_based_TREs_with_STARTseq_based_maxTSS_mm10_200bp_centered_on_maxTSS_chr_start_end_strand.bed 25000 150000 2500 ./EP_contacts_compared_to_local_background/TRP/ 10000 150000
 
 After running MicroC_EP_and_BG_contacts.bsh for all three treatment and control conditions, you can run the following to obtain scatterplots comparing the EP over background ratios across all EP pairs, between the different treatment conditions:
 

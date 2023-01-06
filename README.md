@@ -22,7 +22,7 @@ Before we start the demo, please clone this repository and `cd` into it.
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from processed pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. 
 
-This is not necessary for the purpose of these demos, but if you wan to obtain this kind of pairs files for you own data you can run distiller-nf with: `parsing_options: '--add-columns mapq'` and `drop_readid: True`. You can find examples of raw Micro-C data processing in the "Micro-C_basic_processing" directory that containes YML configuration files used for distiller-nf. After obtaining pairs file for each replicate in your data, run:
+This is not necessary for the purpose of these demos, but if you want to obtain this kind of pairs files for you own data you can run distiller-nf with: `parsing_options: '--add-columns mapq'` and `drop_readid: True`. You can find examples of raw Micro-C data processing in the "Micro-C_basic_processing" directory that containes YML configuration files used for distiller-nf. After obtaining pairs file for each replicate in your data, run:
 
     zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs```
 

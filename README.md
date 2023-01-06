@@ -47,6 +47,8 @@ To then visualize the distribution of lacal decay-normalized contacts by pair ty
 
     python ./Contact_normalization_by_local_decay/Plotting_obs_over_exp_distribution_by_pair_type.py ./Contact_normalization_by_local_decay/ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 ./Contact_normalization_by_local_decay/Violinplot_for_normalized_contacts_by_pair_type.svg
 
+![image](https://user-images.githubusercontent.com/47452349/211053627-94bb1e91-d376-4efd-85f2-d427943f42d5.png)
+
 ### APA_and_inter-sample_APA
 This is an alternative approach to conduct an aggregated peak analysis (APA). It can be used both to plot the aggregated raw contacts between anchors in the data and to compare between the aggregated contacts in different samples (like control and treatment), while normalizing for changes in anchor-associated contacts (1D signal). Please refer to the README at the APA_and_inter-sample_APA or the methods section in the paper for a detailed explanation of why this is important in the case of transcriptional inhibitors and for a mathematical representation of the calculation included.
 

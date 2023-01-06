@@ -14,6 +14,8 @@ if [ "$#" -lt 4 ]; then
   exit 1
 fi
 
+export LD_LIBRARY_PATH=/programs/R-4.0.5/lib/
+
 peakFile=$1 # File of "bait" peaks(promoters + enhancers +...) to analyze (format: Chromosome <\t> bait-center-position)
 tssFile=$2 # File of "prey" TSSs(promoters) to analyze (format: Chromosome <\t> prey-center-position)
 conFile=$3  # Contact file based on distiller output excluding the header and first column
@@ -82,6 +84,7 @@ wait_a_second(){
 }
 
 date
+
 mkdir -p $outputPath/conFile
 mkdir -p $outputPath/baits_by_chrom
 mkdir -p $outputPath/preys_by_chrom
@@ -126,13 +129,11 @@ wait
 
 
 
-cat $peakFile | awk -v d=$DIST 'BEGIN{OFS="\t"} {if ($2 >= d) {print NR-1, $1, $2-d, $2+d, $2}; if ($2 < d) {print NR-1, $1, "0",$2+d, $2}}' \
-|awk 'BEGIN{OFS="\t"}{ print $1,$2, $3, $4,$5}' > $outputPath/${peakFile}_temp1
+cat $peakFile | awk -v d=$DIST 'BEGIN{OFS="\t"} {if ($2 >= d) {print NR-1, $1, $2-d, $2+d, $2}; if ($2 < d) {print NR-1, $1, "0",$2+d, $2}}' | awk 'BEGIN{OFS="\t"}{ print $1,$2, $3, $4,$5}' > $outputPath/${peakFile}_temp1
 wait
 
 split_chrom(){
-  awk -v chr=$1 'BEGIN {OFS = "\t"} { if ($1 == chr) {print $1, $2, $3, $4}; if ( $1 > chr ){ exit;}}' $conFile \
-|awk 'BEGIN{OFS="\t"} {if ($2<=$4 && $1==$3) {print $1, $2, $3, $4}; if ($2>$4 && $1==$3) {print $1, $4, $3, $2}}' > $outputPath/confile_by_chrom/$1_confile_temp0.bed
+  zcat $conFile | awk -v chr=$1 'BEGIN {OFS = "\t"} { if ($1 == chr) {print $1, $2, $3, $4}; if ( $1 > chr ){ exit;}}' | awk 'BEGIN{OFS="\t"} {if ($2<=$4 && $1==$3) {print $1, $2, $3, $4}; if ($2>$4 && $1==$3) {print $1, $4, $3, $2}}' > $outputPath/confile_by_chrom/$1_confile_temp0.bed
 if [ -e "$outputPath/confile_by_chrom/$1_confile_temp0.bed" ];then
   mv $outputPath/confile_by_chrom/$1_confile_temp0.bed $outputPath/confile_by_chrom/$1_confile_temp.bed
 else
@@ -180,13 +181,5 @@ while read index chr start end center; do
     wait_a_second
 done <$outputPath/${peakFile}_temp1
 wait
-
-
-rm -rf $outputPath/baits_by_chrom
-rm -rf $outputPath/conFile
-rm -rf $outputPath/preys_by_chrom
-rm -rf $outputPath/preys_in_baits
-rm -rf $outputPath/${peakFile}_temp1
-rm -rf $outputPath/confile_by_chrom
 
 echo " DONE! "

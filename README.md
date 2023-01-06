@@ -16,7 +16,6 @@ Before we start the demo, please clone this repository and `cd` into it.
   * os
   * seaborn
   * scipy
-  * matplotlib
 - R packages:
   * rpy2
 

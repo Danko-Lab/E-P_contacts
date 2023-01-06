@@ -94,3 +94,10 @@ After running MicroC_EP_and_BG_contacts.bsh for all three treatment and control 
     python ./EP_contacts_compared_to_local_background/Compering_EP_contacts_between_treatments.py ./EP_contacts_compared_to_local_background/DMSO/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/FLV/EP_and_BG_contacts.txt ./EP_contacts_compared_to_local_background/TRP/EP_and_BG_contacts.txt 53226768 362862200 410040533 8 ./EP_contacts_compared_to_local_background/FLV_vs_DMSO.svg ./EP_contacts_compared_to_local_background/TRP_vs_DMSO.svg ./EP_contacts_compared_to_local_background/FLV_vs_TRP.svg
 
 Note: The integers above represent (from left to righr) the sequencing depth of DMSO, FLV and TRP treated mESCs Micro-C for cis interactions with mapq>30 and the minimum threshold for contacts per billion (CPB) for EP contact, to include in the analysis.
+
+![image](https://user-images.githubusercontent.com/47452349/211047070-d164de58-52f9-4dd3-9910-6804384f9b5e.png)
+
+![image](https://user-images.githubusercontent.com/47452349/211047099-eeee477e-71f1-4584-b17a-05a0c8d8bb61.png)
+
+![image](https://user-images.githubusercontent.com/47452349/211047021-abf8deec-2277-428d-a5a9-8c248e4b48a4.png)
+

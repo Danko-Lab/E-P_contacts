@@ -37,10 +37,6 @@ mkdir ${OutputDir}/contacts_by_chrom
 cat $contacts | awk 'BEGIN{OFS="\t"} {print "chr"$1, $2, "chr"$3, $4, $5, $6, $7, $8, $9}' > ${OutputDir}/${conFile}_temp1 &
 
 for chr in ${chroms[@]}; do
-    cat ${OutputDir}/${conFile}_temp1 | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if (($1 == c) && (&3 == c)) {print $0}}' > ${OutputDir}/contacts_by_chrom/${chr}.contacts
-wait
-
-for chr in ${chroms[@]}; do
     zcat $contacts | awk -v c=$chr 'BEGIN {OFS = "\t"} ; {if (($1 == c) && ($3 == c)) {print $0}}' > ${OutputDir}/contacts_by_chrom/${chr}.contacts
 done
 wait
@@ -117,4 +113,4 @@ for chr in ${chroms[@]}; do
         done < ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed
         echo $chrom $center
     done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed
-done
+done 

@@ -10,7 +10,7 @@ import sys
 4 - Output Violinplot
 '''
 
-contacts_data = pd.read_csv(sys.argv[1], sep = '\t', index_col = 0, names = ['target_site.chr','target_site.center','target_gene.center','directional_distance','observed','expected','distance','PosNeg','SE_overlap'])
+contacts_data = pd.read_csv(sys.argv[1], sep = '\t', index_col = 0)
 contacts_data.index = range(len(contacts_data.index))
 
 

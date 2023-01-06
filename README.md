@@ -99,5 +99,5 @@ Note: The integers above represent (from left to righr) the sequencing depth of 
 
 ![image](https://user-images.githubusercontent.com/47452349/211047099-eeee477e-71f1-4584-b17a-05a0c8d8bb61.png)
 
-![image](https://user-images.githubusercontent.com/47452349/211047021-abf8deec-2277-428d-a5a9-8c248e4b48a4.png)
+![image](https://user-images.githubusercontent.com/47452349/211047284-226441a3-34da-4764-8b30-82d94182be07.png)
 

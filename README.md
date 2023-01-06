@@ -68,11 +68,13 @@ To get the flavopiridol (FLV) changes over DMSO control:
 
     python ./APA_and_inter-sample_APA/Change_calculation_and_visualization.py ./APA_and_inter-sample_APA/DMSO/AggMat.csv ./APA_and_inter-sample_APA/FLV/AggMat.csv ./APA_and_inter-sample_APA/DMSO/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/DMSO/preys_genome_wide_contacts.csv ./APA_and_inter-sample_APA/FLV/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/FLV/preys_genome_wide_contacts.csv 10000 50 10530 27900 ./APA_and_inter-sample_APA/FLV_over_DMSO_1D_normalized_change_APA.svg 
 
+![image](https://user-images.githubusercontent.com/47452349/211051740-b5ee8e0e-030e-4000-a14c-4601bef7e685.png)
+
 To get the triptolide (TRP) changes over DMSO control:
 
     python ./APA_and_inter-sample_APA/Change_calculation_and_visualization.py ./APA_and_inter-sample_APA/DMSO/AggMat.csv ./APA_and_inter-sample_APA/TRP/AggMat.csv ./APA_and_inter-sample_APA/DMSO/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/DMSO/preys_genome_wide_contacts.csv ./APA_and_inter-sample_APA/TRP/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/TRP/preys_genome_wide_contacts.csv 10000 50 10530 27900 ./APA_and_inter-sample_APA/TRP_over_DMSO_1D_normalized_change_APA.svg 
 
-
+![image](https://user-images.githubusercontent.com/47452349/211051897-0c0cd911-6dbd-4cf8-9706-8c7b884d28ab.png)
 
 ### EP_contacts_compared_to_local_background
 This is a complementary method to the APA, in which rather than examining the aggregated contacts, we are looking at the distribution of contacts across all pairs of enhancers and promoter (or other sets of enchors) within a defined range of genomic distances, while normalizing for the contacts obtained between the enhancer and the promoter flanking regions and vise-versa. The benifit of this approach is that it is, on one hand captures the entire distribution of changes between control and treatment conditions, while on the other hand, less affected by outliers. It also allows us to perform ststistical tests to ask if the global trend obtained under different treatment is statistically significant.

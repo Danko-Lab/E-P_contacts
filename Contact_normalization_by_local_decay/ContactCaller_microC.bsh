@@ -98,6 +98,7 @@ done < $peakFile
 }
 
 baits_by_chrom
+
 wait
 
 preys_by_chrom(){
@@ -107,6 +108,7 @@ done < $tssFile
 }
 
 preys_by_chrom
+
 wait
 
 preys_in_baits2(){
@@ -125,11 +127,11 @@ preys_in_baits(){
 done < $peakFile
 }
 preys_in_baits
+
 wait
 
+cat $peakFile | awk -v d=$DIST 'BEGIN{OFS="\t"} {if ($2 >= d) {print NR-1, $1, $2-d, $2+d, $2}; if ($2 < d) {print NR-1, $1, "0",$2+d, $2}}' | awk 'BEGIN{OFS="\t"}{ print $1,$2, $3, $4,$5}' > $outputPath/peakFile_temp1
 
-
-cat $peakFile | awk -v d=$DIST 'BEGIN{OFS="\t"} {if ($2 >= d) {print NR-1, $1, $2-d, $2+d, $2}; if ($2 < d) {print NR-1, $1, "0",$2+d, $2}}' | awk 'BEGIN{OFS="\t"}{ print $1,$2, $3, $4,$5}' > $outputPath/${peakFile}_temp1
 wait
 
 split_chrom(){
@@ -166,7 +168,7 @@ split_chrom_bg(){
     if [ ! -e "$outputPath/confile_by_chrom/${chr}_confile_temp.bed" ]; then
       split_chrom $chr
     fi
-  done < $outputPath/${peakFile}_temp1
+  done < $outputPath/peakFile_temp1
 }
 
 split_chrom_bg &
@@ -179,7 +181,7 @@ while read index chr start end center; do
     done
     call_loop_bg $index $chr $start $end $center &
     wait_a_second
-done <$outputPath/${peakFile}_temp1
+done <$outputPath/peakFile_temp1
 wait
 
 echo " DONE! "

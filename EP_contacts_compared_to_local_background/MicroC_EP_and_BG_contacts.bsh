@@ -109,7 +109,7 @@ wait
 for chr in ${chroms[@]}; do
     while read chrom start end strand center; do
         while read chromE startE endE strandE centerE; do
-            python single_pair_contacts_and_background_calculation.py $center $centerE ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed ${OutputDir}/preys_IN_contacts_folder/${chr}_${centerE}.bed $winSize $minBGdis $maxBGdis ${OutputDir}/EP_and_BG_contacts.txt
+            python ./EP_contacts_compared_to_local_background/single_pair_contacts_and_background_calculation.py $center $centerE ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed ${OutputDir}/preys_IN_contacts_folder/${chr}_${centerE}.bed $winSize $minBGdis $maxBGdis ${OutputDir}/EP_and_BG_contacts.txt
         done < ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed
         echo $chrom $center
     done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed

@@ -151,7 +151,7 @@ split_peak_region(){
 
 python_call_loop(){
   chr=$1 center=$2 index=$3
-  python ContactCaller_microC.py --peakfile $peakFile --preyfile $outputPath/preys_in_baits/$1_$2.bed --confile $outputPath/conFile/temp_${index}.gz --out $outputPath/$1_$2.txt --dist $DIST --cap $CAP --index $index --chrom $chr --position $center
+  python ./Contact_normalization_by_local_decay/ContactCaller_microC.py --peakfile $peakFile --preyfile $outputPath/preys_in_baits/$1_$2.bed --confile $outputPath/conFile/temp_${index}.gz --out $outputPath/$1_$2.txt --dist $DIST --cap $CAP --index $index --chrom $chr --position $center
 }
   
 

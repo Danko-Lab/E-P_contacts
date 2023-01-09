@@ -97,7 +97,7 @@ mkdir ${OutputDir}/per_bait_matrices_folder
 
 for chr in ${chroms[@]}; do
     while read chrom start end strand center; do
-        python MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed $center $strand ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed $winSize $pixNum ${OutputDir}/per_bait_matrices_folder/${chr}_${center}.csv &
+        python ./APA_and_inter-sample_APA/MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py ${OutputDir}/baits_IN_contacts_folder/${chr}_${center}.bed $center $strand ${OutputDir}/preys_IN_baits_folder/${chr}_${center}.bed $winSize $pixNum ${OutputDir}/per_bait_matrices_folder/${chr}_${center}.csv &
         echo per_bait_matrices $chrom $center
         wait_a_second
     done < ${OutputDir}/baits_by_chrom/${chr}_baits.bed
@@ -105,7 +105,7 @@ done
 
 wait
 
-python MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py ${OutputDir}/per_bait_matrices_folder/ $winSize $pixNum ${OutputDir}/AggMat.csv ${OutputDir}/AggHeatmap.svg
+python ./APA_and_inter-sample_APA/MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py ${OutputDir}/per_bait_matrices_folder/ $winSize $pixNum ${OutputDir}/AggMat.csv ${OutputDir}/AggHeatmap.svg
 
 
 #generate a temp per-locus contact files directory with all contacts that has one side within the search window for each locus
@@ -122,10 +122,10 @@ done
 wait 
 
 #Get 1D contact signal near baits
-python get_genome_wide_normalization_scores_by_search_window.py $baits ${OutputDir}/baits_IN_contacts_folder/ baits $winSize $pixNum ${OutputDir}/baits_genome_wide_contacts.csv
+python ./APA_and_inter-sample_APA/get_genome_wide_normalization_scores_by_search_window.py $baits ${OutputDir}/baits_IN_contacts_folder/ baits $winSize $pixNum ${OutputDir}/baits_genome_wide_contacts.csv
 
 wait
 
 #Get 1D contact signal near preys
-python get_genome_wide_normalization_scores_by_search_window.py $preys ${OutputDir}/preys_IN_contacts_folder/ preys $winSize $pixNum ${OutputDir}/preys_genome_wide_contacts.csv
+python ./APA_and_inter-sample_APA/get_genome_wide_normalization_scores_by_search_window.py $preys ${OutputDir}/preys_IN_contacts_folder/ preys $winSize $pixNum ${OutputDir}/preys_genome_wide_contacts.csv
 

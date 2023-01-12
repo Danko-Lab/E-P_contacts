@@ -1,4 +1,4 @@
-target_site.chr,target_gene.start,target_gene.stop,ENSG,gene_short_name,strand,target_site.start,target_site.stop,fold_change.transcript_remaining,pvalue.empirical.adjusted,target_site.strand,mean_ATAC_RPM,PROseq_GB_RPKM,distance,target_promoter.center,target_site.start
+target_site.chr,target_gene.start,target_gene.stop,ENSG,gene_short_name,strand,target_site.start,target_site.stop,fold_change.transcript_remaining,pvalue.empirical.adjusted,target_site.strand,mean_ATAC_RPM,PROseq_GB_RPKM,distance,target_promoter.center,target_site.center
 chr1,1777990,1778990,ENSG00000008130,NADK,-,2391170,2392170,0.997970151,0.993788975,+,39.86381274,3.146836264,613180,1778490,2391670
 chr1,7770740,7771740,ENSG00000049245,VAMP3,+,7961040,7962040,0.999697744,0.998956978,-,28.38730391,0.881671298,190300,7771240,7961540
 chr1,24413330,24414330,ENSG00000001460,STPG1,-,23777880,23778880,0.995735453,0.994766441,-,9.967663617,0.164471981,635450,24413830,23778380

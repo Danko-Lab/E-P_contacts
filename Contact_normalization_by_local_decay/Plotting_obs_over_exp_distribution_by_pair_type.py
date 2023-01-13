@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 import sys
 '''
 1 - ContactCaller_microC_output_W_functional_nonfunctional_and_oter_pair_assignments.txt

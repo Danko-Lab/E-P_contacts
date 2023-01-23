@@ -90,7 +90,7 @@ treatment_preys_1D_signal - the treatment 1D signal vector around preys (a csv f
 
 winSize - window half size of region to screen for contacts per region with other region in the list (integer). This will be half the APA 1D size.
 
-pixNu - half the number of pixels to devide the window to (integer). The resulting pixels will represent winSize/pixNum bps
+pixNum - half the number of pixels to devide the window to (integer). The resulting pixels will represent winSize/pixNum bps
 
 number_of_baits - an integer representing the number of baits in the data
 

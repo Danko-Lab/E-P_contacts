@@ -1,29 +1,38 @@
-This directory holds the bash and associated python files to calculate the intra-sample aggregated peak analysis (APA),
-calculate the 1D signal associated with each set of anchors (baits and preys) in each sample and calculate the ratio
-of ratios representing observed over expected change in aggregated contacts between the anchors.
+We expected significant changes in chromatin after manipulating Pol II transcription. As such, not only are enhancer-promoter contacts expected to change, but the background contacts with at least one end originating at enhancer- and promoter- regions may be affected between conditions. As APAs are often used to characterize contacts, we devised an APA that normalizes enhancer-promoter contacts for changes in the 1D signal mapping to either anchor region. 
 
-We expected significant changes in chromatin after manipulating Pol II transcription. As such, not only are enhancer-promoter contacts expected to change, but the background contacts with at least one end originating at enhancer- and promoter- regions may be affected between conditions. As APAs are often used to characterize contacts, we devised an APA that normalizes enhancer-promoter contacts to all contacts associated with enhancers and promoters.
+Our strategy to visualize the aggregated changes in contacts across pairs of anchors between different conditions is to normalize contact changes in the APA by changes in aggregated 1D signal (henceforth called background) mapped to the same windows (Fig. 2A, Fig. S5). While other sets of anchors in the genome can and have been used by us in this study, we would focus on enhancers and promoters in this description for simplicity. For each enhancer-promoter pair within our defined genomic distance range (distance ranges and rationale are provided below), we calculated an observed contact matrix, $\boldsymbol{O}$, between one of the enhancer and one of the promoter regions, centering on the TSSs: 
 
-Our strategy normalized contacts in the APA by changes in aggregated 1D signal mapped to the same windows used in the APA between conditions. We calculated the expected change in each pixel based on the ratio between the sum of the 1D signal in each sample or treatment condition (Fig. 2A). We computed the enhancer-promoter contact in each  in each pixel relative to the TSS of enhancers and promoters as:
+$$\boldsymbol{O} = [C_{i,j}]$$ 
 
-$$obs_{i,j} = \sum_{k=1}^{n_{ep}} M_{(k)i',j'}$$
+Where $C_{i,j}$ is the number of contacts mapped to the $i$ th window relative to the enhancer TSS and the $j$ th window relative to the promoter TSS. We summed all matrices for enhancer-promoter pairs meeting our distance requirements to get the observed ($\boldsymbol{obs}$) APA matrix:
 
-Where the signal at pixel $i$ (relative to the enhancer TSS) and $j$ (relative to the promoter TSS) is summed across the $i’$ and $j’$ pixels in each of the n matrices ( $M$ ) representing enhancer-promoter pairs within the defined genomic distance range from each other. Each matrix $(M_{(k)})$ represents the contact matrix between a single enhancer-promoter pair.
+$$\boldsymbol{obs} = \sum_{k=1}^{n_{ep}}\boldsymbol{O}_{k}$$
 
-The background expected signal in each pixel, for each sample, was calculated as the 1D signal density relative to the enhancer and promoter TSS. This quantity was calculated using the following formula:
+Where $n_{ep}$, the number of enhancer-promoter pairs, is restricted by the allowed genomic distance range we defined. In figures calculating APAs within a single sample or condition, we presented the $\boldsymbol{obs}$ matrix as heatmaps (Figs. 1D and 3B). 
 
-$$exp_{i,j} = \sum_{k=1}^{n_{e}}E_{(k)i'} / n_e + \sum_{k=1}^{n_{p}}P_{(k)j'} / n_p$$
+As noted above, different conditions can have very different densities of Micro-C paired-end tags mapping to each anchor, which are in some cases caused by effects the perturbation studied in the experiment has on nucleosome occupancy and/ or other aspects of 1D chromatin structure. Interpreting whether enhancer-promoter interactions change between conditions requires asking whether the observed change is more extreme than can be explained by changes in the density of 1D background signal mapping at both anchors (henceforth called background). Therefore when representing the changes in contacts between different conditions, we normalized the observed changes to background changes in 1D signal near enhancers and promoters.
 
-Where $n_e$ is the total number of enhancers in the data and $n_p$ is the total number of promoters in the data. The 1D signal density at position $i$ relative to the promoter and $j$ relative to the enhancer ( $E(k)i'$ ) and each  promoter ( $P(k)j'$ ) was read and summed across all enhancers and promoters. The minimal distance of contacts considered at the 1D signal calculations was the same as in the enhancer-promoter contacts calculation, to avoid noise stemming from random ligation events for loci at very close linear proximity. Note that we have divided the sums over position $i$ relative to the promoter and $j$ relative to the enhancer by $n_e$ and $n_p$, respectively to avoid a bias due to a higher number of enhancers in the data. 
+We computed the background matrix in two steps: (1) We compute the 1D signal near each enhancer/ promoter anchor, and (2) We turn the 1D signal into a matrix by computing the outer sum of the signal at enhancer/ promoter anchors. The motivation for this strategy is that we assume the probability of observing a signal in window $i,J$ of the matrix based on the 1D signal is proportional to the probability of observing a read in either window $i$ in the enhancer or window $j$ in the promoter. These assumptions motivate the use of the sum of signals in each anchor in each window to build the matrix (often called the outer sum).
 
+First (step 1), we defined a vector of counts with the same length/ width as the APA matrix, $\boldsymbol{O}$, that represents the sum of all Micro-C paired-end tags in which at least one end falls into that window relative to the anchor (usually the enhancer or promoter TSS), and the other end falls between the minimum and maximum distance allowed by the APA. Formally, we defined a vector $E_{x}$ for each enhancer and $P_{y}$ for each promoter representing the same region as the APA and take the element-wise sum across all enhancer and promoter vectors in the dataset. This procedure results in vectors $E$ and $P$ below:
 
-To compare the 1D normalized changes in contacts between treatment conditions, we calculated a ratio of ratios, with the numerator ratio representing the observed change and the denominator representing the expected change in contacts for that pixel. So, to account for the obs/exp changes in samples A relative to sample B, we used the following formula:
+$$E = \sum_{x=1}^{n_{e}}E_{x}$$
 
-$$obs / exp = \frac{obsA / obsB}{expA / expB}$$
+$$P = \sum_{y=1}^{n_{p}}P_{y}$$
 
-For all other, intra-sample APAs we used the aggregated raw counts, as described for the observed values calculation above. 
+Second (step 2), we used vectors $E$ and $P$  to generate the background matrix $\boldsymbol{B}$. o get the first row in matrix $\boldsymbol{B}$ we summed the first value of $E$ with the corresponding value of $P$ for each column. We use $i$ and $j$ that represent the cells relative to the enhancer and the promoter TSSs, respectively. To account for the difference in enhancer and promoter numbers in the data, the values of $E_{i}$ and $P_{j}$  in the calculation of the background matrix $\boldsymbol{B}$ were divided by $n_{e}$  and $n_{p}$, respectively. Hence, the calculation of cell ,  in the background matrix is computed as follows:
 
-To avoid overlapping windows around enhancers and promoters, we excluded enhancer-promoter pairs for which the separating genomic distance was smaller than the total 1D size of the APA plus the maximal fragment size in the library, which is known for Micro-C libraries due to the agarose gel purification step. For example, for a 20kb x 20kb APA, the minimum enhancer-promoter distance should be larger than ~20.3 kp. For APAs calculated at windows of 20kb around the anchors, we considered all possible anchor pairs within a genomic distance of 25-150kb. For higher resolution APAs with 2kb window around enhancer and promoter TSSs (Fig. 1D and Fig. S3), we considered all possible enhancer-promoter pairs within a genomic distance of 5-100kb.
+$$\boldsymbol{B}_{i,j} = E_{i}/n_{e} + P_{j}/n_{p}$$
+
+Note that $n_{ep} \neq n_{e} + n_{p}$ because for two reasons: first, not all enhancer-promoter pairs are allowed by our distance requirements, and second each enhancer (or promoter) can be paired with multiple promoters (or enhancers). Thus, matrix $\boldsymbol{B}$ which is based on summing of the 1D signal at enhancer and promoter regions, is used for normalization to account for changes in chromatin structure near enhancer and promoter anchors that are expected to affect MNase cut frequency, and does not represent the expected matrix of enhancer-promoter contacts under any relevant assumptions. 
+
+In each background normalized APA, we calculated the 1D signal-corrected fold-change matrix $\boldsymbol{F}$ by dividing matrices $\boldsymbol{obs}$ and $\boldsymbol{B}$ cell by cell, for each condition, and dividing the resulted matrices for the treatment and control condition similarly. Hence:
+
+$$\boldsymbol{F}_{i,j} = \frac{\boldsymbol{obs}_{i,j} (T) / \boldsymbol{B}_{i,j} (T)}{\boldsymbol{obs}_{i,j} (C) / \boldsymbol{B}_{i,j}(C)}$$
+
+Where $T$ stands for treatment and $C$ for control. 
+
+The primary concern when choosing window sizes in the APA is to avoid overlapping windows between enhancers and promoters, which would result in crossing the diagonal of the Micro-C matrix. To avoid overlapping windows around enhancers and promoters, we excluded enhancer-promoter pairs for which the separating genomic distance was smaller than the total 1D size of the APA plus the maximal fragment size in the library, which is known for Micro-C libraries due to the agarose gel purification step. For example, for a 20kb x 20kb APA, the minimum enhancer-promoter distance should be larger than 20.3 kp. For APAs calculated at windows of 20kb around the anchors, we considered all possible anchor pairs within a genomic distance of 25-150kb. For the high resolution APA with 2kb window around enhancer and promoter TSSs (Fig. 1D), we considered all possible enhancer-promoter pairs within a genomic distance of 5-100kb.
 
 
 

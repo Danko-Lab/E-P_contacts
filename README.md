@@ -16,6 +16,12 @@ Before we start the demo, please clone this repository and `cd` into it.
   * os
   * seaborn
   * scipy
+  * datetime
+  * joblib
+  * string
+  * fast_histogram
+  * argparse
+  * pdb
 - R packages:
   * rpy2
 

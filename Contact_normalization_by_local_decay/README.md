@@ -36,5 +36,13 @@ Other requirements:
   * numpy
   * statsmodels
   * gzip
+  * datetime
+  * joblib
+  * os
+  * string
+  * fast_histogram
+  * scipy
+  * argparse
+  * pdb
 - R packages:
   * rpy2

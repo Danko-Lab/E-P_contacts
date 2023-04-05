@@ -1,24 +1,24 @@
 import sys
+import gzip
+import os
+import string
+import datetime
+import argparse
+import pdb
+
+import joblib
+import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
-import numpy as np
 import statsmodels.api as sm
+import scipy
+import scipy.stats as stats
+import rpy2
 from rpy2.robjects.packages import importr
 from rpy2.robjects.vectors import IntVector as ivect
 import rpy2.robjects as robjects
-import rpy2
-import gzip
-import datetime
-import joblib
 from joblib import Parallel, delayed
-import os
-import string
 from fast_histogram import histogram1d
-import scipy
-import scipy.stats as stats
-import argparse
-import pdb
-#pdb.set_trace()
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()

@@ -18,6 +18,9 @@ Before we start the demo, please clone this repository and `cd` into it.
   * rpy2
 - R >= 3.0
 
+### Installation
+If you have Python enviroment on Linux, please run pip command to install the above packages. 
+
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from processed pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. 
 

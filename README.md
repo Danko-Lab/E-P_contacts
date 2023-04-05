@@ -5,23 +5,16 @@ Before we start the demo, please clone this repository and `cd` into it.
 
 ### Dependencies:
 
-- Python > 3
+- Python >= 3.7
 - Python packages:
-  * sys
-  * pandas
-  * numpy
-  * statsmodels
-  * gzip
+  * fast-histogram 
+  * joblib
   * matplotlib
-  * os
+  * numpy
+  * pandas
+  * statsmodels
   * seaborn
   * scipy
-  * datetime
-  * joblib
-  * string
-  * fast_histogram
-  * argparse
-  * pdb
 - R packages:
   * rpy2
 

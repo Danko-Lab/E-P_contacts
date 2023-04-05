@@ -15,8 +15,8 @@ Before we start the demo, please clone this repository and `cd` into it.
   * statsmodels
   * seaborn
   * scipy
-- R packages:
   * rpy2
+- R >= 3.0
 
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from processed pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. 

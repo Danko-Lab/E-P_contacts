@@ -16,13 +16,13 @@ We computed the background matrix in two steps: (1) We compute the 1D signal nea
 
 First (step 1), we defined a vector of counts with the same length/ width as the APA matrix, $\boldsymbol{O}$, that represents the sum of all Micro-C paired-end tags in which at least one end falls into that window relative to the anchor (usually the enhancer or promoter TSS), and the other end falls between the minimum and maximum distance allowed by the APA. Formally, we defined a vector $E_{x}$ for each enhancer and $P_{y}$ for each promoter representing the same region as the APA and take the element-wise sum across all enhancer and promoter vectors in the dataset. This procedure results in vectors $E$ and $P$ below:
 
-$$E = \sum_{x=1}^{n_{e}}E_{x}$$
+$$E_{i} = \sum_{x=1}^{n_{e}}E_{x_{i}}/n_{e}$$
 
-$$P = \sum_{y=1}^{n_{p}}P_{y}$$
+$$P_{j} = \sum_{y=1}^{n_{p}}P_{y_{j}}/n_{p}$$
 
 Second (step 2), we used vectors $E$ and $P$  to generate the background matrix $\boldsymbol{B}$. o get the first row in matrix $\boldsymbol{B}$ we summed the first value of $E$ with the corresponding value of $P$ for each column. We use $i$ and $j$ that represent the cells relative to the enhancer and the promoter TSSs, respectively. To account for the difference in enhancer and promoter numbers in the data, the values of $E_{i}$ and $P_{j}$  in the calculation of the background matrix $\boldsymbol{B}$ were divided by $n_{e}$  and $n_{p}$, respectively. Hence, the calculation of cell ,  in the background matrix is computed as follows:
 
-$$\boldsymbol{B}_{i,j} = E_{i}/n_{e} + P_{j}/n_{p}$$
+$$\boldsymbol{B}_{i,j} = E_{i} + P_{j}$$
 
 Note that $n_{ep} \neq n_{e} + n_{p}$ because for two reasons: first, not all enhancer-promoter pairs are allowed by our distance requirements, and second each enhancer (or promoter) can be paired with multiple promoters (or enhancers). Thus, matrix $\boldsymbol{B}$ which is based on summing of the 1D signal at enhancer and promoter regions, is used for normalization to account for changes in chromatin structure near enhancer and promoter anchors that are expected to affect MNase cut frequency, and does not represent the expected matrix of enhancer-promoter contacts under any relevant assumptions. 
 

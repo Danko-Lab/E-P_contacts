@@ -6,7 +6,6 @@ import datetime
 import argparse
 import pdb
 
-import joblib
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
@@ -17,7 +16,6 @@ import rpy2
 from rpy2.robjects.packages import importr
 from rpy2.robjects.vectors import IntVector as ivect
 import rpy2.robjects as robjects
-from joblib import Parallel, delayed
 from fast_histogram import histogram1d
 
 def parse_arguments(argv):
@@ -104,7 +102,7 @@ def optimize_lowess2(x, x0, pos, winsize, delta,distance, dist=1000 * 1000 ):
     return bgPDF
 
 def fisher_test(a1, a2, b1, b2, method=0):
-    print(a1, a2, b1, b2)
+    #print(a1, a2, b1, b2)
     try:
         if method == 0:    # 0 fisher_test by R ;1 fisher_test by python
             v = robjects.FloatVector([a1, a2, b1, b2])
@@ -115,11 +113,11 @@ def fisher_test(a1, a2, b1, b2, method=0):
             robjects.r("exact <- fisher.test(matrix, alternative = 'greater')")
             result = robjects.r("exact")
             p_val = result[0][0]
-            print(p_val)
+            #print(p_val)
         else:
             result = stats.fisher_exact([[a1,a2],[b1,b2]], alternative='greater')
             p_val = result[1]
-            print(p_val)
+            #print(p_val)
     except:
         p_val = 999.99
     return p_val
@@ -210,5 +208,3 @@ if __name__ == '__main__':
     args = parse_arguments(sys.argv[1:])
     print()
     main(args)
-
-

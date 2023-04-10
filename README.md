@@ -30,11 +30,11 @@ Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
 
 About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
 
-* please cd to get to the directory where the `environment.yml` is before you install the environment
+（2）please cd to get to the directory where the `environment.yml` is before you install the environment
 ```
 cd E-P_contacts
 ```
-（2）then install the environment using:
+（3）then install the environment using:
 ```
 conda env create -f environment.yml
 ```
@@ -44,7 +44,7 @@ To manage your conda environments, use the following commands to view envs insta
 ```
 conda info --envs
 ```
-（3）Activate the environment that you'd like to use
+（4）Activate the environment that you'd like to use
 
 [we suggest Conda 4.6 and later versions (all operating systems):](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 ```

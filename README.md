@@ -41,7 +41,7 @@ conda env create -f environment.yml
 ```
 This will take a bit of time to run. 
 
-To manage your conda environments, use the following commands to view envs installed, if it is successful，you will see an environent named EP-contacts:
+To manage your conda environments, use the following commands to view envs installed, if it is successfulyou will see an environent named EP-contacts:
 ```
 conda info --envs
 ```

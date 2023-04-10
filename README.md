@@ -19,7 +19,40 @@ Before we start the demo, please clone this repository and `cd` into it.
 - R >= 3.0
 
 ### Installation
-If you have Python enviroment on Linux, please run pip command to install the above packages. 
+1. If you have Python enviroment on Linux, please run pip command to install the above packages. 
+2. 2. Or Install the EP-contact Environment on Linux directly by the environment.yml .
+
+To begin, install `git` and `conda` for Python 3.x (we suggest 3.6).
+
+Installing git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
+
+About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
+
+* Also note that for the code above to work, you need to be in the directory where the `environment.yml` file lives so CD to that directory first
+```
+$ cd E-P_contacts
+```
+then install the environment using:
+```
+conda env create -f environment.yml
+```
+This will take a bit of time to run. 
+
+* To manage your conda environments, use the following commands to view envs installed:
+```
+conda info --envs
+```
+Activate the environment that you'd like to use
+
+[Conda 4.6 and later versions (all operating systems):](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+```
+conda activate EP-contacts
+```
+
+The environment name is `EP-contacts` as defined in the `environment.yml` file.
+
 
 ### Pairs files
 In all of the provided code, the source for Micro-C contact information is from processed pairs files generated via the distiller-nf algorithm. Most of these processed files can be found in the GEO dataset for this project: GSE206131. Other are available at ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/. 

@@ -30,6 +30,7 @@ Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
 
 About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
 
+
 （2）please cd to get to the directory where the `environment.yml` is before you install the environment
 ```
 cd E-P_contacts

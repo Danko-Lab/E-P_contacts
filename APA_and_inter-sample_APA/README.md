@@ -101,14 +101,3 @@ path_to_APA_image_file
 Other requirements:
 
 * The python files MicroC_Stranded_Aggregation_pipeline_get_bait_matrix.py, MicroC_Stranded_Aggregation_pipeline_get_aggregated_matrix.py and get_genome_wide_normalization_scores_by_search_window should be placed in the directory from which the bash script MicroC_Stranded_Aggregation_pipeline_with_1D_signal.bsh is being executed.
-
-* Python>3
-
-* Python packages:
-  * sys
-  * pandas
-  * matplotlib
-  * os
-  * seaborn
-  * numpy
-  * scipy

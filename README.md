@@ -30,9 +30,9 @@ Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
 
 About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
 
-* Also note that for the code above to work, you need to be in the directory where the `environment.yml` file lives so CD to that directory first
+* please cd to get to the directory where the `environment.yml` is before you install the environment
 ```
-$ cd E-P_contacts
+cd E-P_contacts
 ```
 （2）then install the environment using:
 ```
@@ -46,7 +46,7 @@ conda info --envs
 ```
 （3）Activate the environment that you'd like to use
 
-[Conda 4.6 and later versions (all operating systems):](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+[we suggest Conda 4.6 and later versions (all operating systems):](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 ```
 conda activate EP-contacts
 ```

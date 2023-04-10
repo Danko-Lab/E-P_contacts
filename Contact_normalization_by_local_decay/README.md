@@ -29,20 +29,4 @@ CAP - [optional, default=2000] Half size of "bait" and "prey" contact capture wi
 Other requirements:
 
 - The python file should be placed in the directory from which the bash script is being executed.
-- Python>3
-- Python packages:
-  * sys
-  * pandas
-  * numpy
-  * statsmodels
-  * gzip
-  * datetime
-  * joblib
-  * os
-  * string
-  * fast_histogram
-  * scipy
-  * argparse
-  * pdb
-- R packages:
-  * rpy2
+

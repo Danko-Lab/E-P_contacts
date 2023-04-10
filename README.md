@@ -16,7 +16,7 @@ Before we start the demo, please clone this repository and `cd` into it.
   * seaborn
   * scipy
   * rpy2
-- R >= 3.0
+- R >= 4.1
 
 ### Installation
 1. If you have Python enviroment on Linux, please run pip command to install the above packages. 
@@ -31,11 +31,11 @@ Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
 About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
 
 
-（2）please cd to get to the directory where the `environment.yml` is before you install the environment
+（2）Please cd to get to the directory where the `environment.yml` is before you install the environment
 ```
 cd E-P_contacts
 ```
-（3）then install the environment using:
+（3）Then install the environment using:
 ```
 conda env create -f environment.yml
 ```

@@ -1,5 +1,5 @@
 # Code for Barshad et al. 2023
-This repository includes the main pieces of code used to support the conclusion in the paper. We also provide input files used in the paper when possible and explain how to obtain the ones that were too big to be provided here. The three main types of analyses are: Contact_normalization_by_local_decay, APA_and_inter-sample_APA and EP_contacts_compared_to_local_background. In each of the above repositories you can find a detailed explanation about the different scripts, what they do and requred\optional parameters and input files. Here, we provide examples for code execution with data analysed in this paper.   
+This repository includes the main pieces of code used to support the conclusion in the paper. We also provide input files used in the paper when possible and explain how to obtain the ones that were too big to be provided here. The three main types of analyses are: Contact_normalization_by_local_decay, APA_and_inter-sample_APA and EP_contacts_compared_to_local_background. In each of the above repositories you can find a detailed explanation about the different scripts, what they do and required\optional parameters and input files. Here, we provide examples for code execution with data analysed in this paper.   
 
 Before we start the demo, please clone this repository and `cd` into it.
 
@@ -19,18 +19,18 @@ Before we start the demo, please clone this repository and `cd` into it.
 
 ### Installation
 1. If you have Python enviroment on Linux, please run pip command to install the above packages. 
-2. Or install the EP-contact Environment on Linux directly by the environment.yml .
+2. Or install the EP-contacts environment on Linux directly by the environment.yml .
 
 （1） To begin, prepare `git` and `conda` (we suggest 4.6）for Python 3.x (we suggest 3.9）
 
 Installing Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-Installing miniconda: https://docs.conda.io/en/latest/miniconda.html
+Installing Miniconda: https://docs.conda.io/en/latest/miniconda.html
 
-About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
+About Conda environments: https://conda.io/docs/user-guide/tasks/manage-environments.html
 
 
-（2）Please cd to get to the directory where the `environment.yml` is before you install the environment
+（2）Please cd to get to the directory where the `environment.yml` is before you install the environment:
 ```
 cd E-P_contacts
 ```
@@ -44,7 +44,7 @@ To manage your Conda environments, use the following commands to view envs insta
 ```
 conda info --envs
 ```
-（4）Activate the environment that you'd like to use
+（4）Activate the environment that you'd like to use:
 ```
 conda activate EP-contacts
 ```
@@ -63,6 +63,7 @@ For the purpose of these demos, please make sure you have `cd` into the E-P_cont
 
     wget "ftp://cbsuftp.tc.cornell.edu/danko/hub/MicroC_pairs_files/*"
     wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE206nnn/GSE206131/suppl/GSE206131_K562_cis_mapq30_pairs.txt.gz
+    
 
 ### Contact_normalization_by_local_decay
 We used this code to compare local background signal normalized contact frequency between functional and nonfunctional pairs of enhancers and promoters. The normalization to the local pattern of the distance decay provides a way of seperating the effect of contact frequency from that of genomic distance - two features that often highly correlate. To run this code, you will need the pairs file for our Micro-C data from K562 cells (GSE206131_K562_cis_mapq30_pairs.txt.gz) that can be found at the GEO repository. The rest of the input files can be found at the input files directory in this GitHub repository. To obtain observed and expected contacts between 4kb windows around enhancers and promoters that were tested by CRISPRi and are up to 1Mb from each other in K562 cells, run:
@@ -82,6 +83,7 @@ To then visualize the distribution of lacal decay-normalized contacts by pair ty
     python ./Contact_normalization_by_local_decay/Plotting_obs_over_exp_distribution_by_pair_type.py ./Contact_normalization_by_local_decay/ContactCaller_microC_output_W_functional_nonfunctional_and_other_pair_assignments.txt 1 15000 ./Contact_normalization_by_local_decay/Violinplot_for_normalized_contacts_by_pair_type.svg
 
 ![image](https://user-images.githubusercontent.com/47452349/211053627-94bb1e91-d376-4efd-85f2-d427943f42d5.png)
+
 
 ### APA_and_inter-sample_APA
 This is an alternative approach to conduct an aggregated peak analysis (APA). It can be used both to plot the aggregated raw contacts between anchors in the data and to compare between the aggregated contacts in different samples (like control and treatment), while normalizing for changes in anchor-associated contacts (1D signal). Please refer to the README at the APA_and_inter-sample_APA or the methods section in the paper for a detailed explanation of why this is important in the case of transcriptional inhibitors and for a mathematical representation of the calculation included.
@@ -111,6 +113,7 @@ To get the triptolide (TRP) changes over DMSO control:
     python ./APA_and_inter-sample_APA/Change_calculation_and_visualization.py ./APA_and_inter-sample_APA/DMSO/AggMat.csv ./APA_and_inter-sample_APA/TRP/AggMat.csv ./APA_and_inter-sample_APA/DMSO/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/DMSO/preys_genome_wide_contacts.csv ./APA_and_inter-sample_APA/TRP/baits_genome_wide_contacts.csv ./APA_and_inter-sample_APA/TRP/preys_genome_wide_contacts.csv 10000 50 10530 27900 ./APA_and_inter-sample_APA/TRP_over_DMSO_1D_normalized_change_APA.svg 
 
 ![image](https://user-images.githubusercontent.com/47452349/211051897-0c0cd911-6dbd-4cf8-9706-8c7b884d28ab.png)
+
 
 ### EP_contacts_compared_to_local_background
 This is a complementary method to the APA, in which rather than examining the aggregated contacts, we are looking at the distribution of contacts across all pairs of enhancers and promoter (or other sets of enchors) within a defined range of genomic distances, while normalizing for the contacts obtained between the enhancer and the promoter flanking regions and vise-versa. The benifit of this approach is that it is, on one hand captures the entire distribution of changes between control and treatment conditions, while on the other hand, less affected by outliers. It also allows us to perform ststistical tests to ask if the global trend obtained under different treatment is statistically significant.

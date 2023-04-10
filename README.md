@@ -8,7 +8,6 @@ Before we start the demo, please clone this repository and `cd` into it.
 - Python >= 3.9
 - Python packages:
   * fast-histogram 
-  * joblib
   * matplotlib
   * numpy
   * pandas

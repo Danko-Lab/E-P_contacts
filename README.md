@@ -5,7 +5,7 @@ Before we start the demo, please clone this repository and `cd` into it.
 
 ### Dependencies:
 
-- Python >= 3.7
+- Python >= 3.9
 - Python packages:
   * fast-histogram 
   * joblib

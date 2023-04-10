@@ -22,7 +22,7 @@ Before we start the demo, please clone this repository and `cd` into it.
 1. If you have Python enviroment on Linux, please run pip command to install the above packages. 
 2. Or Install the EP-contact Environment on Linux directly by the environment.yml .
 
-To begin, install `git` and `conda` for Python 3.x (we suggest 3.9).
+（1） To begin, install `git` and `conda` for Python 3.x (we suggest 3.9).
 
 Installing git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
@@ -34,7 +34,7 @@ About Conda Environments: https://conda.io/docs/user-guide/tasks/manage-environm
 ```
 $ cd E-P_contacts
 ```
-then install the environment using:
+（2）then install the environment using:
 ```
 conda env create -f environment.yml
 ```
@@ -44,7 +44,7 @@ To manage your conda environments, use the following commands to view envs insta
 ```
 conda info --envs
 ```
-Activate the environment that you'd like to use
+（3）Activate the environment that you'd like to use
 
 [Conda 4.6 and later versions (all operating systems):](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 ```

@@ -49,14 +49,3 @@ NOTE: We made maxBGdis equal to maxDis in our study. Hence, the anchor will alwa
 Other requirements:
 
 * The python file single_pair_contacts_and_background_calculation.py should be placed in the directory from which the bash script is being executed.
-
-* Python>3
-
-* Python packages:
-  * sys
-  * pandas
-  * scipy
-  * os
-  * numpy
-  * seaborn
-  * matplotlib

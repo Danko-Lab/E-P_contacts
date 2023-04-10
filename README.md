@@ -19,7 +19,7 @@ Before we start the demo, please clone this repository and `cd` into it.
 
 ### Installation
 1. If you have Python enviroment on Linux, please run pip command to install the above packages. 
-2. Or Install the EP-contact Environment on Linux directly by the environment.yml .
+2. To Install the EP-contact Environment on Linux directly by the environment.yml .
 
 （1） To begin, prepare `git` and `conda` (we suggest 4.6）for Python 3.x (we suggest 3.9）
 

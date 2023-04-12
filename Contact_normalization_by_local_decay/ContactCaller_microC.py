@@ -97,7 +97,6 @@ def optimize_lowess2(x, x0, pos, winsize, delta,distance, dist=1000 * 1000 ):
         bgModel.extend(counts)
 
     reads = sum(val < dist for val in distance)
-    print(reads)
     bgPDF = [float(i / reads) for i in bgModel]
     return bgPDF
 

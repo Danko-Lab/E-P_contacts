@@ -104,7 +104,7 @@ def fisher_test(a1, a2, b1, b2, method=0):
     #print(a1, a2, b1, b2)
     try:
         if method == 0:    # 0 fisher_test by R ;1 fisher_test by python
-            v = robjects.FloatVector([a1, a2, b1, b2])
+            v = robjects.FloatVector([round(a1), round(a2), round(b1), round(b2)])
             robjects.r.assign("v", v)
             test = robjects.r("matrix(v, nrow = 2)")
             robjects.r.assign("matrix", test)
@@ -205,5 +205,4 @@ def main(args):
 
 if __name__ == '__main__':
     args = parse_arguments(sys.argv[1:])
-    print()
     main(args)

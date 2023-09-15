@@ -55,7 +55,7 @@ In all of the provided code, the source for Micro-C contact information is from 
 
 This is not necessary for the purpose of these demos, but if you want to obtain this kind of pairs files for you own data you can run distiller-nf with: `parsing_options: '--add-columns mapq'` and `drop_readid: True`. You can find examples of raw Micro-C data processing in the "Micro-C_basic_processing" directory that containes YML configuration files used for distiller-nf. After obtaining pairs file for each replicate in your data, run:
 
-    zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs```
+    zcat perfix.rep1.pairs.gz perfix.rep2.pairs.gz perfix.rep3.pairs.gz ... | awk 'BEGIN {OFS = "\t"} ; {if ($1 == "." && $2 == $4 && $9 >= 30 && $10 >= 30) {print $2, $3, $4, $5, $6, $7, $8, $9, $10}}' > perfix.nodups_30_intra.pairs
 
 For the purpose of these demos, please make sure you have `cd` into the E-P_contacts repository and run the following to download the relevant processed pairs files:
 
